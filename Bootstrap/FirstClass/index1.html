@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html ng-app="pagingApp">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body ng-controller="pagingController" ng-init="init()">
+    <div class="container">
+        <div>
+            <div ng-repeat="item in list | start: (currentPage - 1) * pageSize | limitTo: pageSize"
+                 class="alert alert-success col-md-12">
+                <span ng-bind="item.name"></span>
+            </div>
+            <!--<pagination total-items="list.length" items-per-page="pageSize" ng-model="currentPage" max-size="5"
+                        class="pagination-sm"></pagination>-->
+            <ul uib-pagination total-items="list.length" items-per-page="pageSize" ng-model="currentPage" max-size="5" class="pagination-sm"></ul>
+        </div>
+    </div>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script>
+        var app = angular.module('pagingApp', ['ui.bootstrap']);
+        app.controller('pagingController', pagingController);
+        pagingController.$inject = ['$scope'];
+        function pagingController($scope) {
+            // a sample array
+            $scope.list = [];
+            $scope.currentPage = 1;
+            $scope.pageSize = 5;
+            $scope.init = function () {
+                for (var i = 0; i < 100; i++) {
+                    $scope.list.push({ 'name': 'name' + i });
+                }
+            };
+        }
+
+        app.filter('start', startFilter);
+        function startFilter() {
+            return function (input, start) {
+                // input is a array
+                if (!input || !input.length) {
+                    return;
+                }
+                start = +start;
+                return input.slice(start);
+            };
+        };
+
+    </script>
+</body>
+</html>
