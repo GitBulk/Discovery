@@ -17,8 +17,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bootstrap", "Bootstrap", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FirstClass", "Bootstrap\FirstClass\FirstClass.csproj", "{3E836B16-27F2-49E4-B905-5E1AD294B19F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanSeats", "SignalR\PlanSeats\PlanSeats.csproj", "{0E0622A5-3D5E-4B7C-BB6E-2A7FC39BAC02}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,10 +43,6 @@ Global
 		{3E836B16-27F2-49E4-B905-5E1AD294B19F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E836B16-27F2-49E4-B905-5E1AD294B19F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E836B16-27F2-49E4-B905-5E1AD294B19F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E0622A5-3D5E-4B7C-BB6E-2A7FC39BAC02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E0622A5-3D5E-4B7C-BB6E-2A7FC39BAC02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E0622A5-3D5E-4B7C-BB6E-2A7FC39BAC02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E0622A5-3D5E-4B7C-BB6E-2A7FC39BAC02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +50,5 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{78AB30F9-EFBD-4B95-9DCE-20667107B1FA} = {7165D794-6B1E-4CE7-B447-1F20FEDA27B2}
 		{3E836B16-27F2-49E4-B905-5E1AD294B19F} = {F6E6A31A-8090-4A30-A52B-997B801F798A}
-		{0E0622A5-3D5E-4B7C-BB6E-2A7FC39BAC02} = {7165D794-6B1E-4CE7-B447-1F20FEDA27B2}
 	EndGlobalSection
 EndGlobal
