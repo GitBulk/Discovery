@@ -22,15 +22,23 @@ namespace ChatRoom.Controllers
             {
                 ViewBag.Title = "Home Page";
                 ViewBag.Username = model.UserName;
-                return View("Chat");
+                Session["username"] = model.UserName;
+                return RedirectToAction("Chat", "Home");
             }
             return View("Index");
         }
 
-        public ActionResult Chat(Login model)
+        public ActionResult Chat()
         {
+            string name = Session["username"] as string;
+            if (string.IsNullOrEmpty(name))
+            {
+                return RedirectToAction("Index");
+            }
+            ViewBag.UserName = name;
             return View();
         }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

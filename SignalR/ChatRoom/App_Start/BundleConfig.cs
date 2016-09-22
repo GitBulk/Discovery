@@ -25,7 +25,15 @@ namespace ChatRoom
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/font-awesome.min.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/chat/js").Include(
+                      "~/Scripts/angular.min.js",
+                      "~/Scripts/chatapp/app.js",
+                      "~/Scripts/chatapp/chatFactory.js",
+                      "~/Scripts/chatapp/chatController.js"
+                      ));
         }
     }
 }
