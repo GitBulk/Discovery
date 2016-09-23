@@ -248,8 +248,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\customersApp\app.js" />
-    <Content Include="app\customersApp\partials\modal.html" />
+    <Content Include="index.html" />
+    <Content Include="Scripts\app\customersApp\app.js" />
+    <Content Include="Scripts\app\customersApp\partials\modal.html" />
+    <Content Include="Scripts\app\customersApp\services\authService.js" />
+    <Content Include="Scripts\app\customersApp\services\dataService.js" />
+    <Content Include="Scripts\app\customersApp\services\httpInterceptors.js" />
+    <Content Include="Scripts\app\customersApp\services\modalService.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -328,13 +333,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\customersApp\animations\" />
-    <Folder Include="app\customersApp\controllers\" />
-    <Folder Include="app\customersApp\directives\" />
-    <Folder Include="app\customersApp\filters\" />
-    <Folder Include="app\customersApp\services\" />
-    <Folder Include="app\customersApp\views\" />
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\app\customersApp\animations\" />
+    <Folder Include="Scripts\app\customersApp\controllers\" />
+    <Folder Include="Scripts\app\customersApp\directives\" />
+    <Folder Include="Scripts\app\customersApp\filters\" />
+    <Folder Include="Scripts\app\customersApp\views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
