@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html ng-app="cookieApp">
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body ng-controller="cookieController">
+    <input ng-click="getCookie()" type="button" name="GetCookie" value="GetCookie" />
+    <input ng-click="setCookie()" type="button" name="SetCookie" value="SetCookie" />
+    <script src="scripts/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.min.js"></script>
+    <script>
+
+        var app = angular.module("cookieApp", ['ngCookies']);
+        app.controller('cookieController', cookieController);
+        cookieController.$inject = ['$scope', '$cookies'];
+        function cookieController($scope, $cookies) {
+
+
+            $scope.setCookie = function () {
+                $cookies.put('myCookie', 'toantran');
+            }
+
+            $scope.getCookie = function () {
+                var result = $cookies.get('myCookie');
+                console.log(result);
+            }
+        }
+    </script>
+</body>
+</html>

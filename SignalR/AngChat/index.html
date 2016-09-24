@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html ng-app="chatApp">
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+
+</head>
+<body ng-controller="chatController">
+    <h1>SignalR with hub</h1>
+    <div>
+        <div>
+            Name: <input type="text" ng-model="name" /><br />
+            Message: <input type="text" ng-model="message" /><br />
+            <input type="button" value="Send" ng-click="send()" />
+        </div>
+        <div>
+            <ul>
+                <li ng-repeat="chat in messages">
+                    <!--<span ng-bind="chat"></span>-->
+                    <span>{{chat}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="scripts/jquery-1.6.4.min.js"></script>
+    <script src="scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="signalr/hubs"></script>
+    <script src="scripts/angular.min.js"></script>
+    <!--<script src="scripts/sampleChat.js"></script>-->
+    <script>
+        (function () {
+            var app = angular.module('chatApp', []);
+            app.controller('chatController', chatController);
+            chatController.$inject = ['$scope'];
+            function chatController($scope) {
+                $scope.name = 'default name';
+                $scope.message = '';
+                $scope.messages = [];
+                $scope.chatHub = null;
+
+                $scope.chatHub = $.connection.SimpleChatHub; // init hub
+                $.connection.hub.start(); // start hub
+
+                // register a client method on hub to be invoked by the server
+                $scope.chatHub.client.broadcastMessage = function (name, message) {
+                    var newMessage = name + ' says: ' + message;
+
+                    $scope.messages.push(newMessage);
+                    $scope.$apply();
+                };
+
+                // click event
+                $scope.send = function () {
+                    // sends a new message to the server
+                    $scope.chatHub.server.sendMessage($scope.name, $scope.message);
+                    $scope.message = '';
+                };
+            }
+        })();
+    </script>
+</body>
+</html>

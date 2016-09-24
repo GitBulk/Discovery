@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html ng-app="privateChatApp">
+<head>
+    <title>Private Chat</title>
+	<meta charset="utf-8" />
+</head>
+<body ng-controller="privateChatController">
+    <h2>Lets Chat</h2>
+
+    <div class="form-group col-xl-12">
+        <label id="username" class="control-label"></label><br />
+        <label class="control-label">Your connection Id</label><br />
+        <input autofocus type="text" class="col-lg-12 text-primary" id="frndConnId" ng-model="privateKey" placeholder="Paste your friend's private Key" /><br /><br />
+        <label class="control-label">Your Message</label><br />
+        <textarea type="text" class="col-lg-10 text-primary" ng-model="message" id="message"></textarea>
+
+        <input type="button" class="btn btn-primary" id="sendmessage" ng-click="send()" value="Send" /><br /><br />
+        <img src="images/emotions/alien.svg" width="20" height="20" id="smile" style="cursor:pointer" />
+        <img src="images/emotions/asian.svg" width="20" height="20" id="ufff" style="cursor:pointer" />
+        <div class="container chatArea">
+            <input type="hidden" id="displayname" />
+            <ul id="discussion">
+                <li ng-repeat="chat in messages">
+                    <!--<span ng-bind="chat"></span>-->
+                    <span>{{chat}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br />
+    <input type="text" ng-model="myConId" id="connId" />
+    <script src="scripts/jquery-1.6.4.min.js"></script>
+    <script src="scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="signalr/hubs"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script>
+        (function () {
+            var app = angular.module("privateChatApp", []);
+            app.controller('privateChatController', privateChatController);
+            privateChatController.$inject = ['$scope'];
+            function privateChatController($scope) {
+                $scope.username = '';
+                $scope.message = '';
+                $scope.messages = [];
+                $scope.chatHub = null;
+                $scope.privateKey = '';
+                $scope.myConId = '';
+
+                inputName();
+                initHub();
+
+                function inputName() {
+                    var person = prompt("Please enter your name", "Harry Potter");
+                    if (person != null) {
+                        $('#username').text(person);
+                        $scope.username = person;
+                    }
+                }
+
+                function initHub() {
+                    $scope.chatHub = $.connection.privateChatHub;
+                    $.connection.hub.start();
+                }
+
+                $scope.chatHub.client.sendMessageToClient = function (username, message) {
+                    var newMessage = username + ': ' + message;
+                    $scope.messages.push(newMessage);
+                    $scope.$apply();
+                };
+
+                $scope.send = function () {
+
+                    var privateKey = $scope.myConId == "" ? $.connection.hub.id : $scope.myConId;
+                    $scope.chatHub.server.send($scope.username, $scope.message, privateKey);
+                    $scope.message = '';
+                    $('#message').focus();
+                }
+            }
+        })();
+
+    </script>
+</body>
+</html>

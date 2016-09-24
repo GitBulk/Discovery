@@ -1,0 +1,54 @@
+﻿(function () {
+    angular.module('customersApp').service('modalService', modalService);
+    modalService.$inject = ['$modal'];
+    function modalService() {
+        var modalDefaults = {
+            backdrop: true,
+            keyboard: true,
+            modalFade: true,
+            templateUrl: 'app/customersApp/partials/modal.html'
+        };
+
+        var modalOptions = {
+            closeButtonText: 'Close',
+            actionButtonText: "OK",
+            headerText: 'Proceeed ?',
+            bodyText: 'Perform this action ?'
+        };
+
+        this.showModal = function (customModalDefaults, customModalOptions) {
+            if (!customModalDefaults) {
+                customModalDefaults = {};
+            }
+            customModalDefaults.backdrop = 'static';
+            return this.show(customModalDefaults, customModalOptions);
+        }
+
+        this.show = function (customModalDefaults, customModalOptions) {
+
+            var tempModalDefaults = {};
+            var tempModalOptions = {};
+
+            // map angular-ui modal custom defaults to modal defaults defined in this service
+            angular.extend(tempModalDefaults, modalDefaults, customModalDefaults);
+
+            // map modal.html $scope custom propertis to defauts defined in this service
+            angular.extend(tempModalOptions, modalOptions, customModalOptions);
+
+            if (!tempModalDefaults.controller) {
+                tempModalDefaults.controller = function ($scope, $modalInstance) {
+                    $scope.modalOptions = tempModalOptions;
+                    $scope.modalOptions.ok = function (resutl) {
+                        $modalInstance.close('ok');
+                    };
+                    $scope.modalOptions.close = function (result) {
+                        $modalInstance.close('cancel');
+                    }
+                }
+                tempModalDefaults.controller.$inject = ['$scope', '$modalInstance'];
+            }
+
+            return $modal.open(tempModalDefaults).result;
+        };
+    }
+})();
