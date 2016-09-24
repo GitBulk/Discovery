@@ -12,6 +12,12 @@ namespace HowToAudiTrail.Controllers
     {
         public ActionResult Index()
         {
+            Person p1 = new Person();
+            p1.Age = 42;
+            p1.Name = "Sam";
+
+            // Perform a shallow copy of p1 and assign it to p2.
+            Person p2 = p1.ShallowCopy();
             return View();
         }
 
@@ -30,6 +36,17 @@ namespace HowToAudiTrail.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+    }
+
+    public class Person
+    {
+        public int Age { get; set; }
+        public string Name { get; set; }
+
+        public Person ShallowCopy()
+        {
+            return (Person)this.MemberwiseClone();
         }
     }
 }
