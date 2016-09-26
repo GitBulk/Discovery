@@ -250,8 +250,12 @@
   <ItemGroup>
     <Content Include="index.html" />
     <Content Include="Scripts\app\customersApp\app.js" />
+    <Content Include="Scripts\app\customersApp\filters\nameCityStateFilter.js" />
+    <Content Include="Scripts\app\customersApp\filters\nameProductFilter.js" />
     <Content Include="Scripts\app\customersApp\partials\modal.html" />
     <Content Include="Scripts\app\customersApp\services\authService.js" />
+    <Content Include="Scripts\app\customersApp\services\config.js" />
+    <Content Include="Scripts\app\customersApp\services\customersService.js" />
     <Content Include="Scripts\app\customersApp\services\dataService.js" />
     <Content Include="Scripts\app\customersApp\services\httpInterceptors.js" />
     <Content Include="Scripts\app\customersApp\services\modalService.js" />
@@ -337,7 +341,6 @@
     <Folder Include="Scripts\app\customersApp\animations\" />
     <Folder Include="Scripts\app\customersApp\controllers\" />
     <Folder Include="Scripts\app\customersApp\directives\" />
-    <Folder Include="Scripts\app\customersApp\filters\" />
     <Folder Include="Scripts\app\customersApp\views\" />
   </ItemGroup>
   <ItemGroup>
