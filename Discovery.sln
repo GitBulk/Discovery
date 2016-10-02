@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HowToExcel", "HowToExcel\Ho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HowToAudiTrail", "HowToAudiTrail\HowToAudiTrail.csproj", "{A18901E4-7BB4-44CF-8CBE-FA640E89BB32}"
 EndProject
+<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HowToCaptcha", "HowToCaptcha\HowToCaptcha.csproj", "{1050DA13-7314-4FF0-B7C1-9D5B32CEBFF4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{F0797218-745D-4378-A329-BE57A21047AA}"
@@ -28,10 +29,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Angular", "Angular", "{BD471B63-81D8-4BC1-A9A2-7C665A69688F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomManagement", "Angular\CustomManagement\CustomManagement.csproj", "{F2FB5A4D-25B7-46D2-8E1F-144D121FE79C}"
+<<<<<<< HEAD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreOne", "CoreOne", "{DCDC7995-F3C3-48AB-B01F-FD8C2D959AA9}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "UndoRedo", "CoreOne\UndoRedo\UndoRedo.xproj", "{A6C70197-02A2-4577-9E05-F88B247398EE}"
+
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +54,7 @@ Global
 		{A18901E4-7BB4-44CF-8CBE-FA640E89BB32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A18901E4-7BB4-44CF-8CBE-FA640E89BB32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A18901E4-7BB4-44CF-8CBE-FA640E89BB32}.Release|Any CPU.Build.0 = Release|Any CPU
+
 		{1050DA13-7314-4FF0-B7C1-9D5B32CEBFF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1050DA13-7314-4FF0-B7C1-9D5B32CEBFF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1050DA13-7314-4FF0-B7C1-9D5B32CEBFF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +67,7 @@ Global
 		{C669EAE0-2D5E-42DE-80CC-C0F3BBD16768}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C669EAE0-2D5E-42DE-80CC-C0F3BBD16768}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C669EAE0-2D5E-42DE-80CC-C0F3BBD16768}.Release|Any CPU.Build.0 = Release|Any CPU
+
 		{78AB30F9-EFBD-4B95-9DCE-20667107B1FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{78AB30F9-EFBD-4B95-9DCE-20667107B1FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78AB30F9-EFBD-4B95-9DCE-20667107B1FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -79,6 +84,7 @@ Global
 		{F2FB5A4D-25B7-46D2-8E1F-144D121FE79C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2FB5A4D-25B7-46D2-8E1F-144D121FE79C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2FB5A4D-25B7-46D2-8E1F-144D121FE79C}.Release|Any CPU.Build.0 = Release|Any CPU
+
 		{A6C70197-02A2-4577-9E05-F88B247398EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A6C70197-02A2-4577-9E05-F88B247398EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6C70197-02A2-4577-9E05-F88B247398EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
