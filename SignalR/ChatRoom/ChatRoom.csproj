@@ -218,6 +218,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TestHubController.cs" />
     <Compile Include="Extensions\ObjectExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -226,6 +227,10 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductManager.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -256,6 +261,9 @@
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\productapp\app.js" />
+    <Content Include="Scripts\productapp\productController.js" />
+    <Content Include="Scripts\productapp\productFactory.js" />
     <Content Include="Scripts\chatapp\app.js" />
     <Content Include="Scripts\chatapp\chatController.js" />
     <Content Include="Scripts\chatapp\chatFactory.js" />
@@ -307,6 +315,9 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />
+    <Content Include="Views\TestHub\Create.cshtml" />
+    <Content Include="Views\TestHub\Index.cshtml" />
+    <Content Include="Views\TestHub\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

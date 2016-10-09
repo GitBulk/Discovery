@@ -34,6 +34,13 @@ namespace ChatRoom
                       "~/Scripts/chatapp/chatFactory.js",
                       "~/Scripts/chatapp/chatController.js"
                       ));
+
+            bundles.Add(new ScriptBundle("~/product/js").Include(
+                      "~/Scripts/angular.min.js",
+                      "~/Scripts/productapp/app.js",
+                      "~/Scripts/productapp/productFactory.js",
+                      "~/Scripts/productapp/productController.js"
+                      ));
         }
     }
 }
