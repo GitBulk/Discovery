@@ -13,5 +13,35 @@ namespace ChatRoom.Controllers
         {
             return View();
         }
+
+        public ActionResult Recipe5()
+        {
+            return View();
+        }
+
+        public ActionResult Recipe7()
+        {
+            return View();
+        }
+
+        public ActionResult Recipe8()
+        {
+            return View();
+        }
+
+        public ActionResult Recipe9()
+        {
+            return View();
+        }
+
+        public ActionResult Recipe10()
+        {
+            return View();
+        }
+
+        public ActionResult Recipe11()
+        {
+            return View();
+        }
     }
 }

@@ -226,6 +226,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\EchoHub.cs" />
     <Compile Include="Hubs\TodoHub.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -315,10 +316,15 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Todo\Index.cshtml" />
+    <Content Include="Views\ChapterTwo\Recipe5.cshtml" />
+    <Content Include="Views\ChapterTwo\Recipe7.cshtml" />
+    <Content Include="Views\ChapterTwo\Recipe8.cshtml" />
+    <Content Include="Views\ChapterTwo\Recipe10.cshtml" />
+    <Content Include="Views\ChapterTwo\Recipe9.cshtml" />
+    <Content Include="Views\ChapterTwo\Recipe11.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ChapterTwo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
