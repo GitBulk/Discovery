@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<table class="table table-bordered" id="tblJobInfo"></table>
+@section scripts{
+    @Scripts.Render("~/bundles/signalr")
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(function () {
+            var todo = $.connection.todoHub;
+            todo.client.displayStatus = function () {
+                getData();
+            };
+
+            $.connection.hub.start();
+            getData();
+        });
+
+        function getData() {
+            var $tbl = $('#tblJobInfo');
+            $.ajax({
+                url: '/api/values',
+                type: 'GET',
+                datatype: 'json',
+                success: function (data) {
+                    if (data.length > 0) {
+                        $tbl.empty();
+                        $tbl.append('<thead><tr><th>ID</th><th>Description</th><th>Status</th></tr></thead><tbody>');
+                        var rows = [];
+                        for (var i = 0; i < data.length; i++) {
+                            rows.push(' <tr><td>' + data[i].Id + '</td><td>' + data[i].Description + '</td><td>' + data[i].Status + '</td></tr>');
+                        }
+                        $tbl.append(rows.join(''));
+                        $tbl.append('</tbody>');
+                    }
+                }
+            });
+        }
+    </script>
+}
