@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Recipe8";
+}
+
+<h2>Recipe8</h2>
+
+
+<label>Group:</label>
+<select id="group">
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+</select>
+<button id="subscribe">Subscribe</button>
+<button id="unsubscribe" style="display: none">Unsubscribe</button>
+<button id="send" style="display: none">Say Hello!</button>
+<ul id="messages"></ul>
+
+@section Scripts {
+
+    <script>
+        $(function () {
+            var hub = $.connection.echo;
+            var toggler = function () {
+                $('#subscribe').toggle();
+                $('#send').toggle();
+                $('#unsubscribe').toggle();
+            }
+
+            $.connection.hub.start().done(function () {
+
+                var groupName = "";
+
+                $('#subscribe').click(function () {
+                    toggler();
+                    groupName = $('#group').val();
+                    hub.server.subscribe(groupName);
+                });
+
+                $('#unsubscribe').click(function () {
+                    toggler();
+                    hub.server.unSubscribe(groupName);
+                });
+
+                $('#send').click(function () {
+                    hub.server.helloGroup(groupName);
+                });
+            });
+
+            hub.client.greeting = function (message) {
+                var li = $('<li/>').html(message);
+                $('#messages').append(li);
+            }
+        })
+    </script>
+}

@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Recipe7";
+}
+
+<h2>Recipe7</h2>
+
+<button id="Send">Send</button>
+<ul id="messages"></ul>
+
+@section Scripts {
+
+    <script>
+        $(function () {
+            var hub = $.connection.echo;
+            $.connection.hub.start().done(function () {
+                $('#Send').click(function () {
+                    hub.server.helloAll();
+                })
+            });
+
+            hub.client.greeting = function (message) {
+                var li = $('<li/>').html(message);
+                $('#messages').append(li);
+            }
+        })
+    </script>
+}

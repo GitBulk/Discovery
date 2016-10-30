@@ -207,6 +207,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationConnection.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -216,22 +217,29 @@
     <Compile Include="ChatHub.cs" />
     <Compile Include="Configuration\SignalRContractResolver.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChapterTwoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TodoController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\TestHubController.cs" />
     <Compile Include="Extensions\ObjectExtension.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\EchoHub.cs" />
+    <Compile Include="Hubs\TodoHub.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Todo.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductManager.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\TodoRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -315,6 +323,13 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />
+    <Content Include="Views\Todo\Index.cshtml" />
+    <Content Include="Views\ChapterTwo\Recipe5.cshtml" />
+    <Content Include="Views\ChapterTwo\Recipe7.cshtml" />
+    <Content Include="Views\ChapterTwo\Recipe8.cshtml" />
+    <Content Include="Views\ChapterTwo\Recipe10.cshtml" />
+    <Content Include="Views\ChapterTwo\Recipe9.cshtml" />
+    <Content Include="Views\ChapterTwo\Recipe11.cshtml" />
     <Content Include="Views\TestHub\Create.cshtml" />
     <Content Include="Views\TestHub\Index.cshtml" />
     <Content Include="Views\TestHub\Edit.cshtml" />

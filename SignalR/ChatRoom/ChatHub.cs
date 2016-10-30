@@ -21,6 +21,18 @@ namespace ChatRoom
             Clients.All.hello();
         }
 
+        public override Task OnConnected()
+        {
+            string id = Context.ConnectionId;
+            return base.OnConnected();
+        }
+
+        public override Task OnReconnected()
+        {
+            string id = Context.ConnectionId;
+            return base.OnReconnected();
+        }
+
         public string Login(string name)
         {
             string connectionId = Context.ConnectionId;
@@ -60,6 +72,7 @@ namespace ChatRoom
             if (toUser != null && fromUser != null)
             {
                 Clients.Client(toConnectionId).recievingPrivateMessage(fromConnectionId, fromUser.Name, message);
+
                 Clients.Caller.recievingPrivateMessage(toConnectionId, fromUser.Name, message);
             }
         }

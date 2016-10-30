@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -23,6 +24,13 @@ namespace ChatRoom
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            SqlDependency.Start(ApplicationConnection.GetConnectionString(), "");
+        }
+
+        protected void Application_End()
+        {
+            SqlDependency.Stop(ApplicationConnection.GetConnectionString());
         }
 
         private static void SetCamelCasePropertyForSignalR()

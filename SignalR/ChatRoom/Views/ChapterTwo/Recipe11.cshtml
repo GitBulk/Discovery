@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Recipe11";
+}
+
+<h2>Recipe11</h2>
+<p id="id"></p>
+<div id="sender" style="display:none">
+    <button id="send">Send to all but</button>
+    <select id="ids"></select>
+</div>
+<ul id="messages"></ul>
+
+@section Scripts {
+
+    <script>
+        $(function () {
+            var hub = $.connection.echo;
+            var connectionId = "";
+
+            $.connection.hub.start().done(function () {
+                connectionId = $.connection.hub.id;
+                $('#id').html(connectionId);
+
+                hub.server.joinRoom();
+
+                $('#send').click(function () {
+                    hub.server.helloBut($('#ids').val());
+                });
+            });
+
+            hub.client.greeting = function (message) {
+                var li = $('<li/>').html(message);
+                $('#messages').append(li);
+            };
+
+            hub.client.connections = function (ids) {
+                $('#ids').empty();
+                for (var i = 0; i < ids.length; i++) {
+                    var id = ids[i];
+                    if (id !== connectionId) {
+                        //$('#ids').append("<option/>").attr('value', id).html(id);
+                        //$('#ids').append("<option/>").val(id).html(id);
+
+                        $('#ids').append($('<option>', {
+                            value: id,
+                            text: id
+                        }));
+
+                    }
+                }
+                if (ids.length) {
+                    $('#sender').show();
+                }
+            };
+        })
+    </script>
+}
+
