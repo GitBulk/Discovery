@@ -3,23 +3,25 @@
 *@
 @{
 }
-<h2>Here is the list of people attending the party</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (PartyInvites.Models.GuestResponse item in Model)
-        {
+<div class="panel-body">
+    <h2>Here is the list of people attending the party</h2>
+    <table class="table table-striped table-bordered">
+        <thead>
             <tr>
-                <td>@item.Name</td>
-                <td>@item.Email</td>
-                <td>@item.Phone</td>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (PartyInvites.Models.GuestResponse item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>@item.Phone</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
