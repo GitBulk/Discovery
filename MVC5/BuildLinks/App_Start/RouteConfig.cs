@@ -13,6 +13,34 @@ namespace BuildLinks
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+
+            routes.MapRoute(
+                name: "ForRentDistrictVN",
+                url: "can-ho-cho-thue/quan-{id}",
+                defaults: new { controller = "Landing", action = "Details" }
+            );
+
+
+            routes.MapRoute(
+                name: "ForRentDistrictEN",
+                url: "eng/for-rent/district-{id}",
+                defaults: new { controller = "Landing", action = "Details" }
+            );
+
+            routes.MapRoute(
+                name: "ForRentVN",
+                url: "cho-thue",
+                defaults: new { controller = "Landing", action = "Index" }
+            );
+
+            routes.MapRoute(
+                name: "ForRentEN",
+                url: "{for-rent}",
+                defaults: new { controller = "Landing", action = "Index" }
+            );
+
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
