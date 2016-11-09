@@ -25,12 +25,12 @@ namespace ChatRoom
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            SqlDependency.Start(ApplicationConnection.GetConnectionString(), "");
+            //SqlDependency.Start(ApplicationConnection.GetConnectionString(), "");
         }
 
         protected void Application_End()
         {
-            SqlDependency.Stop(ApplicationConnection.GetConnectionString());
+            //SqlDependency.Stop(ApplicationConnection.GetConnectionString());
         }
 
         private static void SetCamelCasePropertyForSignalR()

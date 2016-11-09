@@ -72,5 +72,11 @@ namespace ChatRoom.Hubs
             ConnectionIds.Remove(conId);
             return base.OnDisconnected(stopCalled);
         }
+
+        public string HelloWithReturnValue()
+        {
+            string msg = string.Format("Greetings {0}, It's {1:F} and I am a robot", Context.ConnectionId, DateTime.Now);
+            return msg;
+        }
     }
 }
