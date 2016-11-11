@@ -259,9 +259,6 @@
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <EntityDeploy Include="Models\SampleModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SampleModel.Designer.cs</LastGenOutput>

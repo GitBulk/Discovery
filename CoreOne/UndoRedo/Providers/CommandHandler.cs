@@ -46,31 +46,31 @@ namespace UndoRedo.Providers
 
         private void ExcuteAboutDataCommand(CommandDto commandDto)
         {
-            if (commandDto.CommandType == CommandType.Add)
-            {
-                ICommandAdd command = new AddAboutDataCommand(this.loggerFactory, commandDto);
-                command.Excute(this.context);
-                this.dataAccessProvider.AddCommand(CommandEntity.CreateCommandEntity(commandDto));
-                this.dataAccessProvider.Save();
-                command.UpdateIdForNewItems();
-                UndoCommands.Push(command);
-            }
-            else if (commandDto.CommandType == CommandType.Update)
-            {
-                ICommandAdd command = new UpdateAboutDataCommand(this.loggerFactory, commandDto);
-                command.Excute(this.context);
-                this.dataAccessProvider.AddCommand(CommandEntity.CreateCommandEntity(commandDto));
-                this.dataAccessProvider.Save();
-                UndoCommands.Push(command);
-            }
-            else if (commandDto.CommandType == CommandType.Delete)
-            {
-                ICommandAdd command = new DeleteAboutDataCommand(this.loggerFactory, commandDto);
-                command.Excute(this.context);
-                this.dataAccessProvider.AddCommand(CommandEntity.CreateCommandEntity(commandDto));
-                this.dataAccessProvider.Save();
-                UndoCommands.Push(command);
-            }
+            //if (commandDto.CommandType == CommandType.Add)
+            //{
+            //    ICommandAdd command = new AddAboutDataCommand(this.loggerFactory, commandDto);
+            //    command.Excute(this.context);
+            //    this.dataAccessProvider.AddCommand(CommandEntity.CreateCommandEntity(commandDto));
+            //    this.dataAccessProvider.Save();
+            //    command.UpdateIdForNewItems();
+            //    UndoCommands.Push(command);
+            //}
+            //else if (commandDto.CommandType == CommandType.Update)
+            //{
+            //    ICommandAdd command = new UpdateAboutDataCommand(this.loggerFactory, commandDto);
+            //    command.Excute(this.context);
+            //    this.dataAccessProvider.AddCommand(CommandEntity.CreateCommandEntity(commandDto));
+            //    this.dataAccessProvider.Save();
+            //    UndoCommands.Push(command);
+            //}
+            //else if (commandDto.CommandType == CommandType.Delete)
+            //{
+            //    ICommandAdd command = new DeleteAboutDataCommand(this.loggerFactory, commandDto);
+            //    command.Excute(this.context);
+            //    this.dataAccessProvider.AddCommand(CommandEntity.CreateCommandEntity(commandDto));
+            //    this.dataAccessProvider.Save();
+            //    UndoCommands.Push(command);
+            //}
         }
 
         private void ExcuteHomeDataCommand(CommandDto commandDto)
@@ -104,9 +104,10 @@ namespace UndoRedo.Providers
                 {
                     RedoCommands.Push(command);
                     command.UnExcute(this.context);
-                    commandDto.Payload = commandDto
+                    //commandDto.Payload = commandDto
                 }
             }
+            return null;
         }
     }
 }
