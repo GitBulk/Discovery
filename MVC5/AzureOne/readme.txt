@@ -1,1 +1,1 @@
-﻿https://docs.microsoft.com/en-us/azure/redis-cache/cache-web-app-howto
+﻿https://docs.microsoft.com/en-us/azure/redis-cache/cache-web-app-howto#provision-the-azure-resources
