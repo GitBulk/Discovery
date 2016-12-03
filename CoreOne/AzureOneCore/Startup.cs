@@ -41,7 +41,15 @@ namespace AzureOneCore
             // https://channel9.msdn.com/Series/aspnetmonsters/Episode-32-In-Memory-Caching-with-ASPNET-Core
             var builder = services.AddMvc();
             builder.AddMvcCamelCasePropertyNames();
+            //string connectionString = Configuration.GetConnectionString("DefaultConnection");
             ConfigureFilter(builder);
+
+            //http://andrewlock.net/how-to-use-the-ioptions-pattern-for-configuration-in-asp-net-core-rc2/
+            services.Configure<SystemSettings>(option => this.Configuration.GetSection("SystemSettings").Bind(option));
+            //services.Configure<SystemSettings>(op =>
+            //{
+            //    ConfigurationBinder.Bind(Configuration, Configuration.GetSection(nameof(SystemSettings)));
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
