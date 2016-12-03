@@ -23,6 +23,8 @@
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "Microsoft.EntityFrameworkCore": "1.0.1"
     "NLog.Extensions.Logging": "1.0.0-rtm-alpha4"
+    "NLog.Extensions.Logging": "1.0.0-rtm-alpha4",
+    "Microsoft.Extensions.Configuration.UserSecrets": "1.1.0"
   },
 
   "tools": {
