@@ -36,6 +36,7 @@ namespace FirstWebApiCore.Controllers
             //return new ObjectResult(item);
         }
 
+        [HttpPost]
         public IActionResult Create([FromBody]Book book)
         {
             if (book == null)
@@ -45,6 +46,34 @@ namespace FirstWebApiCore.Controllers
             this.bookRepo.Add(book);
             // https://github.com/niksoper/aspnet5-books/blob/blog-dotnet-rc1/src/MvcLibrary/Controllers/BooksController.cs
             return CreatedAtRoute("GetBook", new { id = book.Id }, book);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(string id, [FromBody] Book book)
+        {
+            if (book == null || book.Id != id)
+            {
+                return BadRequest();
+            }
+            var item = this.bookRepo.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            this.bookRepo.Update(book);
+            return new NoContentResult();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(string id)
+        {
+            var item = this.bookRepo.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            this.bookRepo.Remove(id);
+            return new NoContentResult();
         }
     }
 }

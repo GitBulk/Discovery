@@ -8,6 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PartyInvites.Models;
+using NLog.Extensions.Logging;
+using System.IO;
+using NLog.Targets;
+using NLog;
 
 namespace PartyInvites
 {
@@ -46,8 +50,17 @@ namespace PartyInvites
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            //loggerFactory.AddDebug();
+            loggerFactory.AddNLog();
+            string configFir = Path.Combine(env.WebRootPath, "Logs");
+            var logEventInfo =  NLog.LogEventInfo.CreateNullEvent();
+            foreach (FileTarget target in LogManager.Configuration.AllTargets.Where(t => t is FileTarget))
+            {
+                var fileName = target.FileName.Render(logEventInfo).Replace("'", "");
+                target.FileName = Path.Combine(configFir, fileName);
+            }
+            LogManager.ReconfigExistingLoggers();
 
             app.UseApplicationInsightsRequestTelemetry();
 
