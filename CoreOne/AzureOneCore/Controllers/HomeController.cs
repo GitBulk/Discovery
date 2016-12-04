@@ -17,7 +17,7 @@ namespace AzureOneCore.Controllers
             this.settings = settings.Value;
         }
         // GET: /<controller>/
-        public IActionResult Index()
+        public ActionResult Index()
         {
 
             return View();

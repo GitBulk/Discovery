@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using AzureOneCore.Filter;
+using Microsoft.Net.Http.Headers;
 
 namespace AzureOneCore
 {
@@ -28,13 +29,19 @@ namespace AzureOneCore
         private void ConfigureFilter(IMvcBuilder builder)
         {
             var exception = new GlobalExceptionFilter(this.loggerFactory);
-            builder.AddMvcOptions(o => o.Filters.Add(exception));
+            builder.AddMvcOptions(o =>
+            {
+                o.Filters.Add(exception);
+                o.Filters.Add(new WhitespaceFilterAttribute());
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationInsightsTelemetry(Configuration);
             services.AddMemoryCache();
             // https://wildermuth.com/2016/04/14/Using-Cache-in-ASP-NET-Core-1-0-RC1
             // https://www.tutorialspoint.com/asp.net_core/asp.net_core_middleware.htm
@@ -73,7 +80,14 @@ namespace AzureOneCore
             //    await context.Response.WriteAsync(message);
             //});
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = context =>
+                {
+                    const int durationInSeconds = 60 * 60 * 24;
+                    context.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + durationInSeconds;
+                }
+            });
 
             app.UseMvc(routes =>
                 {
