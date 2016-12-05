@@ -17,13 +17,14 @@ namespace AzureOneCore
     {
         public IConfigurationRoot Configuration { get; private set; }
         private ILoggerFactory loggerFactory;
-        public Startup(IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             Configuration = builder.Build();
-            this.loggerFactory = loggerFactory;
+            this.loggerFactory = new LoggerFactory();
+
         }
 
         private void ConfigureFilter(IMvcBuilder builder)
