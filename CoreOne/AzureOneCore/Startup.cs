@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using AzureOneCore.Filter;
 using Microsoft.Net.Http.Headers;
+using AzureOneCore.Midleware;
 
 namespace AzureOneCore
 {
@@ -80,6 +81,8 @@ namespace AzureOneCore
             //    var message = this.Configuration["message"];
             //    await context.Response.WriteAsync(message);
             //});
+
+            //app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseStaticFiles(new StaticFileOptions()
             {
