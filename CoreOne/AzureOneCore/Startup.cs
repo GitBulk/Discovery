@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using AzureOneCore.Filter;
 using Microsoft.Net.Http.Headers;
 using AzureOneCore.Midleware;
+using AzureOneCore.Services;
 
 namespace AzureOneCore
 {
@@ -28,15 +29,32 @@ namespace AzureOneCore
 
         }
 
-        private void ConfigureFilter(IMvcBuilder builder)
+        private IMvcBuilder ConfigureMvc(IServiceCollection services)
         {
+            var builder = services.AddMvc();
+            builder.AddMvcCamelCasePropertyNames();
             var exception = new GlobalExceptionFilter(this.loggerFactory);
             builder.AddMvcOptions(o =>
             {
                 o.Filters.Add(exception);
                 o.Filters.Add(new WhitespaceFilterAttribute());
             });
+            return builder;
+        }
 
+        private void SetCustomConfiguration(IServiceCollection services)
+        {
+            //http://andrewlock.net/how-to-use-the-ioptions-pattern-for-configuration-in-asp-net-core-rc2/
+            services.Configure<SystemSettings>(option => this.Configuration.GetSection("SystemSettings").Bind(option));
+            //services.Configure<SystemSettings>(op =>
+            //{
+            //    ConfigurationBinder.Bind(Configuration, Configuration.GetSection(nameof(SystemSettings)));
+            //});
+        }
+
+        private void SetupDI(IServiceCollection services)
+        {
+            services.AddSingleton<CountryService>();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -48,17 +66,11 @@ namespace AzureOneCore
             // https://wildermuth.com/2016/04/14/Using-Cache-in-ASP-NET-Core-1-0-RC1
             // https://www.tutorialspoint.com/asp.net_core/asp.net_core_middleware.htm
             // https://channel9.msdn.com/Series/aspnetmonsters/Episode-32-In-Memory-Caching-with-ASPNET-Core
-            var builder = services.AddMvc();
-            builder.AddMvcCamelCasePropertyNames();
+            var builder = ConfigureMvc(services);
             //string connectionString = Configuration.GetConnectionString("DefaultConnection");
-            ConfigureFilter(builder);
 
-            //http://andrewlock.net/how-to-use-the-ioptions-pattern-for-configuration-in-asp-net-core-rc2/
-            services.Configure<SystemSettings>(option => this.Configuration.GetSection("SystemSettings").Bind(option));
-            //services.Configure<SystemSettings>(op =>
-            //{
-            //    ConfigurationBinder.Bind(Configuration, Configuration.GetSection(nameof(SystemSettings)));
-            //});
+            SetCustomConfiguration(services);
+            SetupDI(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

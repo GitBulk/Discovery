@@ -56,5 +56,10 @@ namespace AzureOneCore.Controllers
             ViewBag.CookieValue = Request.Cookies[key];
             return View();
         }
+
+        public ActionResult InjectToView()
+        {
+            return View();
+        }
     }
 }

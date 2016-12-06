@@ -1,0 +1,7 @@
+﻿@inject AzureOneCore.Services.CountryService countryService
+<h1>Inject to view</h1>
+Cities:@Html.DropDownList("City", countryService.Provinces().Select(i => new SelectListItem()
+{
+    Text = i,
+    Value = i
+}))
