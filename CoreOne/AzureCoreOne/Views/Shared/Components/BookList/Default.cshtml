@@ -1,0 +1,8 @@
+﻿@model IEnumerable<AzureCoreOne.Models.Book>
+<h2>My books</h2>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li><a asp-controller="Book" asp-action="Details" asp-route-id="@item.Id">@item.Title</a></li>
+    }
+</ul>
