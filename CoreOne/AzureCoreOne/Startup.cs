@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 using AzureCoreOne.Helpers;
 using AzureCoreOne.Filter;
 using AzureCoreOne.Services;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.FileProviders;
+using System.Reflection;
 
 namespace AzureCoreOne
 {
@@ -52,6 +55,16 @@ namespace AzureCoreOne
             return builder;
         }
 
+        private void SetupExternalViewComponent(IServiceCollection services)
+        {
+            var assembly = typeof(ViewComponentLibrary.SimpleViewComponent).GetTypeInfo().Assembly;
+            var embeddedFileProvier = new EmbeddedFileProvider(assembly, "ViewComponentLibrary");
+            services.Configure<RazorViewEngineOptions>(o =>
+            {
+                o.FileProviders.Add(embeddedFileProvier);
+            });
+        }
+
         private void SetupCustomConfiguration(IServiceCollection services)
         {
             //http://andrewlock.net/how-to-use-the-ioptions-pattern-for-configuration-in-asp-net-core-rc2/
@@ -76,6 +89,7 @@ namespace AzureCoreOne
             SetupCustomConfiguration(services);
             SetupMvc(services);
             SetupDI(services);
+            SetupExternalViewComponent(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

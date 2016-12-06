@@ -24,12 +24,14 @@ namespace AzureCoreOne.Controllers
             return View();
         }
 
-        public ViewResult Details(int id)
+        public IActionResult Details(int id)
         {
             var book = this.bookService.Find(Convert.ToString(id));
             if (book == null)
             {
-                throw new HttpStatusCodeException(System.Net.HttpStatusCode.NotFound);
+                // should use throw new HttpStatusCodeException(System.Net.HttpStatusCode.NotFound) for web api
+                //throw new HttpStatusCodeException(System.Net.HttpStatusCode.NotFound);
+                return NotFound();
             }
             return View(book);
         }
