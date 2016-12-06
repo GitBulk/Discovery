@@ -24,6 +24,17 @@ namespace AzureOneCore.Controllers
             return View();
         }
 
+        [Route("/Error/{errorCode}")]
+        public ActionResult Error(int errorCode)
+        {
+            if (errorCode == 500 || errorCode == 404)
+            {
+                return View($"~/Views/Home/Error/{errorCode}.cshtml");
+            }
+            return View(errorCode);
+        }
+
+
         public ActionResult WriteCookie(string key, string value, bool isPersistent = false)
         {
             if (isPersistent)

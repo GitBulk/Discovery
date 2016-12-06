@@ -73,7 +73,13 @@ namespace AzureOneCore
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                // Handle unhandled errors
+                app.UseExceptionHandler("/Error");
+                // Display friendly error pages for any non-success case
+                // This will handle any situation where a status code is >= 400
+                // and < 600, so long as no response body has already been
+                // generated.
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
             }
 
             //app.Run(async (context) =>
