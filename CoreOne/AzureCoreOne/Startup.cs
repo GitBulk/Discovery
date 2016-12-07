@@ -81,15 +81,27 @@ namespace AzureCoreOne
             services.AddSingleton<IBookService, BookService>();
         }
 
+        private void SetupComponents(IServiceCollection services)
+        {
+            services.AddMemoryCache();
+            services.AddSession(o =>
+            {
+                o.CookieName = ".AzureCoreOne.QuizApp";
+                string textTimeout = this.Configuration["SessionIdleTimeout"];
+                o.IdleTimeout = TimeSpan.FromMinutes(Convert.ToInt32(textTimeout));
+            });
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
+            SetupComponents(services);
+            SetupExternalViewComponent(services);
             SetupCustomConfiguration(services);
             SetupMvc(services);
             SetupDI(services);
-            SetupExternalViewComponent(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

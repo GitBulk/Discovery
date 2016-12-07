@@ -24,7 +24,8 @@
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
     "ViewComponentLibrary": "1.0.0-*",
     "Microsoft.Extensions.FileProviders.Embedded": "1.0.0",
-    "Microsoft.EntityFrameworkCore.InMemory": "1.1.0"
+    "Microsoft.EntityFrameworkCore.InMemory": "1.1.0",
+    "Microsoft.AspNetCore.Session": "1.0.0"
   },
 
   "tools": {
