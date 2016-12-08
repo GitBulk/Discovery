@@ -17,8 +17,7 @@ namespace AzureCoreOne.AppContexts
         protected override void OnModelCreating(ModelBuilder
         modelBuilder)
         {
-            modelBuilder.Entity<Quiz>().HasMany<Question>
-            ().WithOne(q => q.Quiz);
+            modelBuilder.Entity<Quiz>().HasMany<Question>().WithOne(q => q.Quiz);
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -13,6 +13,7 @@ using AzureCoreOne.Services;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
+using AzureCoreOne.Configurations;
 
 namespace AzureCoreOne
 {
@@ -83,6 +84,7 @@ namespace AzureCoreOne
 
         private void SetupComponents(IServiceCollection services)
         {
+            services.AddEntityFrameworkInMemoryDatabase();
             services.AddMemoryCache();
             services.AddSession(o =>
             {
@@ -132,12 +134,16 @@ namespace AzureCoreOne
 
             app.UseStaticFiles();
 
+            app.UseSession();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseSampleQuestions(this.environment.WebRootPath);
         }
     }
 }
