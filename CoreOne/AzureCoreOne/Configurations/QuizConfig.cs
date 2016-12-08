@@ -1,4 +1,5 @@
 ﻿using AzureCoreOne.AppContexts;
+using AzureCoreOne.Models;
 using AzureCoreOne.Models.Quizs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ namespace AzureCoreOne.Configurations
 {
     public static class QuizConfig
     {
-        public static void UseSampleQuestions(this IApplicationBuilder app, string path)
+        public static void ImportQuizData(this IApplicationBuilder app, string path)
         {
             // load a sample JSON file of questions
             string json = File.ReadAllText(Path.Combine(path,
@@ -21,8 +22,7 @@ namespace AzureCoreOne.Configurations
             };
             List<Quiz> quizzes = JsonConvert.DeserializeObject<List<Quiz>>(json, settings);
             // Configure the in-memory database option
-            var optionsBuilder = new
-            DbContextOptionsBuilder<QuizContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<QuizContext>();
             optionsBuilder.UseInMemoryDatabase();
             using (var context = new QuizContext(optionsBuilder.Options))
             {
@@ -30,6 +30,25 @@ namespace AzureCoreOne.Configurations
                 {
                     context.Add(quiz);
                 }
+                context.SaveChanges();
+            }
+        }
+
+        public static void ImportData(this IApplicationBuilder app)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<QuizContext>();
+            optionsBuilder.UseInMemoryDatabase();
+            using (var context = new QuizContext(optionsBuilder.Options))
+            {
+                var product = new Product()
+                {
+                    ProductId = 1,
+                    Category = "Tablet",
+                    Description = "iPad mini 2016 description",
+                    Name = "iPad mini 2016",
+                    Price = 200
+                };
+                context.Products.Add(product);
                 context.SaveChanges();
             }
         }

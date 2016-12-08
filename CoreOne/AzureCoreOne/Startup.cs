@@ -143,7 +143,8 @@ namespace AzureCoreOne
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.UseSampleQuestions(this.environment.WebRootPath);
+            app.ImportQuizData(this.environment.WebRootPath);
+            app.ImportData();
         }
     }
 }
