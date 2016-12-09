@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -35,6 +36,7 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                     <li><a asp-area="" asp-controller="Quiz" asp-action="Index">Quiz</a></li>
+                    <li><a asp-area="" asp-controller="VueTodo" asp-action="Index">Vue Todo</a></li>
                 </ul>
             </div>
         </div>
@@ -51,6 +53,7 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/vue/vue_v2.1.3.js"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -62,6 +65,7 @@
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="https://vuejs.org/js/vue.min.js" asp-fallback-src="~/js/vue/vue_v2.1.3.js" asp-append-version="true"></script>
     </environment>
 
     @RenderSection("scripts", required: false)
