@@ -15,5 +15,10 @@ namespace AzureCoreOne.Controllers
         {
             return View();
         }
+
+        public IActionResult NavigationMenu()
+        {
+            return View();
+        }
     }
 }

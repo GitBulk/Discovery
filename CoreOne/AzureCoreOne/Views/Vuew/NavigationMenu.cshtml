@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Navigation Menu Page";
+}
+<!-- The navigation menu will get the value of the "active" variable as a class. -->
+<!-- To stops the page from jumping when a link is clicked
+    we use the "prevent" modifier (short for preventDefault). -->
+
+<div id="main">
+    <nav v-bind:class="active" v-on:click.prevent>
+        <a href="#" class="home" v-on:click="makeActive('home')"></a>
+        <a href="#" class="project" v-on:click="makeActive('project')"></a>
+        <a href="#" class="services" v-on:click="makeActive('services')"></a>
+        <a href="#" class="contact" v-on:click="makeActive('contact')"></a>
+    </nav>
+    <p>You choose <b>{{active}}</b></p>
+</div>
