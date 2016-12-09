@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Order Form Page";
+}
+@section styles{
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/Vuew/OrderForm.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/css/Vuew/OrderForm.min.css" asp-append-version="true" />
+    </environment>
+}
+
+<form id="orderFormApp">
+    <h1>Services</h1>
+    <ul>
+        <li v-for="item in services" v-on:click="toggleActive(item)" v-bind:class="{ 'active': item.active}">
+            {{ item.name }}<span>{{ item.price | currency}}</span>
+        </li>
+    </ul>
+    <div class="total">
+        Total: <span>{{ total() | currency }}</span>
+    </div>
+</form>
+@section scripts{
+    <environment names="Development">
+        <script src="~/js/Vuew/OrderForm.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/Vuew/OrderForm.min.js" asp-append-version="true"></script>
+    </environment>
+}

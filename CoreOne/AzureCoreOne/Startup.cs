@@ -84,6 +84,7 @@ namespace AzureCoreOne
 
         private void SetupComponents(IServiceCollection services)
         {
+
             services.AddEntityFrameworkInMemoryDatabase();
             services.AddMemoryCache();
             services.AddSession(o =>
