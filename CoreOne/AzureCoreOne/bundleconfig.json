@@ -50,5 +50,11 @@
     "inputFiles": [
       "wwwroot/css/Vuew/NavigationMenu.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/InstantSearch.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/InstantSearch.js"
+    ]
   }
 ]
