@@ -25,5 +25,10 @@ namespace AzureCoreOne.Controllers
         {
             return View();
         }
+
+        public IActionResult InstantSearch()
+        {
+            return View();
+        }
     }
 }

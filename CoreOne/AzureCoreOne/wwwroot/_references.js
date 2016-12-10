@@ -4,6 +4,7 @@
 /// <reference path="js/vue/vue_v2.1.3.js" />
 /// <reference path="js/vuetoto/vuetodo.min.js" />
 /// <reference path="js/vuew/inlineeditor.min.js" />
+/// <reference path="js/vuew/instantsearch.min.js" />
 /// <reference path="js/vuew/navigationmenu - copy.js" />
 /// <reference path="js/vuew/navigationmenu.min.js" />
 /// <reference path="js/vuew/orderform - copy.js" />
