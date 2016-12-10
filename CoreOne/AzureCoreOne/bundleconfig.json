@@ -56,5 +56,11 @@
     "inputFiles": [
       "wwwroot/js/Vuew/InstantSearch.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/InstantSearch.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/InstantSearch.css"
+    ]
   }
 ]
