@@ -1,12 +1,11 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="js/event/event.min.js" />
-/// <reference path="js/event/vuetodo.js" />
 /// <reference path="js/site.js" />
 /// <reference path="js/vue/vue_v2.1.3.js" />
-/// <reference path="js/vuetoto/site.js" />
 /// <reference path="js/vuetoto/vuetodo.min.js" />
+/// <reference path="js/vuew/navigationmenu.min.js" />
+/// <reference path="js/vuew/orderform - copy.js" />
 /// <reference path="js/vuew/orderform.min.js" />
-/// <reference path="js/vuew/vuetodo.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="lib/jquery/dist/jquery.js" />
 /// <reference path="lib/jquery-validation/dist/jquery.validate.js" />

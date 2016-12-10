@@ -14,3 +14,12 @@
     </nav>
     <p>You choose <b>{{active}}</b></p>
 </div>
+
+@section scripts{
+    <environment names="Development">
+        <script src="~/js/Vuew/OrderForm.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/Vuew/OrderForm.min.js" asp-append-version="true"></script>
+    </environment>
+}
