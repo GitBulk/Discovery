@@ -1,1 +1,1 @@
-﻿///<binding BeforeBuild='Update all files' />
+﻿///<binding AfterBuild='Update all files' />

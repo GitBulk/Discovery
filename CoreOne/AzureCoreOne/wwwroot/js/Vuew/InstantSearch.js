@@ -1,6 +1,7 @@
 ﻿var instantSearch = new Vue({
     el: '#main',
     data: {
+        name: 'toan tran 2016',
         searchString: "",
 
         // The data model. These items would normally be requested via AJAX,
