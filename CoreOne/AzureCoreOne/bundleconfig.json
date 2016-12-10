@@ -38,5 +38,17 @@
     "inputFiles": [
       "wwwroot/css/Vuew/VueTodo.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/InlineEditor.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/InlineEditor.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/NavigationMenu.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/NavigationMenu.css"
+    ]
   }
 ]

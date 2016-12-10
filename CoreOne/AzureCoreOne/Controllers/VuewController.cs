@@ -20,5 +20,10 @@ namespace AzureCoreOne.Controllers
         {
             return View();
         }
+
+        public IActionResult InlineEditor()
+        {
+            return View();
+        }
     }
 }
