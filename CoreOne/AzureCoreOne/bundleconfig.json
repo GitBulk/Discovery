@@ -32,5 +32,11 @@
     "inputFiles": [
       "wwwroot/css/Vuew/OrderForm.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/VueTodo.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/VueTodo.css"
+    ]
   }
 ]
