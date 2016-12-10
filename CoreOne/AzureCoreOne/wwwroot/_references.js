@@ -5,10 +5,9 @@
 /// <reference path="js/vuetoto/vuetodo.min.js" />
 /// <reference path="js/vuew/inlineeditor.min.js" />
 /// <reference path="js/vuew/instantsearch.min.js" />
-/// <reference path="js/vuew/navigationmenu - copy.js" />
 /// <reference path="js/vuew/navigationmenu.min.js" />
-/// <reference path="js/vuew/orderform - copy.js" />
 /// <reference path="js/vuew/orderform.min.js" />
+/// <reference path="js/vuew/switchablegrid.min.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="lib/jquery/dist/jquery.js" />
 /// <reference path="lib/jquery-validation/dist/jquery.validate.js" />

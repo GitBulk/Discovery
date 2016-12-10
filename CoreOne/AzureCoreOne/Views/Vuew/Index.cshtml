@@ -1,7 +1,0 @@
-﻿@{
-    ViewData["Title"] = "Book Page";
-}
-@await Component.InvokeAsync("BookList", new { numberOfItems = 2 })
-<div class="row">
-@await Component.InvokeAsync("ViewComponentLibrary.Simple", new { number = 7})
-</div>

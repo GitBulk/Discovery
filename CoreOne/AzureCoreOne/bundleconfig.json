@@ -62,5 +62,17 @@
     "inputFiles": [
       "wwwroot/css/Vuew/InstantSearch.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/SwitchableGrid.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/SwitchableGrid.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/SwitchableGrid.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/SwitchableGrid.js"
+    ]
   }
 ]

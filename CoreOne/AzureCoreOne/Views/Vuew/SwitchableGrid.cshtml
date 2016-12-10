@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Switchable Grid Page";
+}
+
+@section styles{
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/Vuew/SwitchableGrid.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/css/Vuew/SwitchableGrid.min.css" asp-append-version="true" />
+    </environment>
+}
+<form style="height: auto" id="main" v-cloak>
+    <div class="bar">
+        <a class="list-icon" v-bind:class="{'active': layout == 'list'}" v-on:click="layout = 'list'"></a>
+        <a class="grid-icon" v-bind:class="{'active': layout == 'grid'}" v-on:click="layout = 'grid'"></a>
+    </div>
+    <ul v-if="layout == 'grid'" class="grid">
+        <li v-for="ar in articles">
+            <a v-bind:href="ar.url" target="_blank"><img v-bind:src="ar.image.large" /></a>
+        </li>
+    </ul>
+    <ul v-if="layout == 'list'" class="list">
+        <li v-for="ar in articles">
+            <a v-bind:href="ar.url" target="_blank"><img v-bind:src="ar.image.small" /></a>
+            <p>{{ar.title}}</p>
+        </li>
+    </ul>
+</form>
+
+@section scripts{
+    <environment names="Development">
+        <script src="~/js/Vuew/SwitchableGrid.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/Vuew/SwitchableGrid.min.js" asp-append-version="true"></script>
+    </environment>
+}

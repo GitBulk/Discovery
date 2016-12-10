@@ -46,6 +46,7 @@
                             <li><a asp-area="" asp-controller="Vuew" asp-action="NavigationMenu">Navigation Menu</a></li>
                             <li><a asp-area="" asp-controller="Vuew" asp-action="InlineEditor">Inline Editor</a></li>
                             <li><a asp-area="" asp-controller="Vuew" asp-action="InstantSearch">Instant Search</a></li>
+                            <li><a asp-area="" asp-controller="Vuew" asp-action="SwitchableGrid">Switchable Grid</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -54,12 +55,11 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2016 - AzureCoreOne</p>
-        </footer>
     </div>
-
+    <hr />
+    <footer>
+        <p>&copy; 2016 - AzureCoreOne</p>
+    </footer>
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
