@@ -27,7 +27,10 @@
     "Microsoft.EntityFrameworkCore.InMemory": "1.1.0",
     "Microsoft.AspNetCore.Session": "1.0.0",
     "Microsoft.EntityFrameworkCore": "1.1.0",
-    "Microsoft.Extensions.Logging.Abstractions": "1.1.0"
+    "Microsoft.Extensions.Logging.Abstractions": "1.1.0",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.1",
+    "Microsoft.AspNetCore.Identity": "1.0.1",
+    "Microsoft.AspNetCore.Authentication.Cookies": "1.0.1"
   },
 
   "tools": {
