@@ -15,6 +15,10 @@ using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 using AzureCoreOne.Configurations;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using AzureCoreOne.AppContexts;
+using Microsoft.EntityFrameworkCore;
+using AzureCoreOne.Models.Indentities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AzureCoreOne
 {
@@ -81,6 +85,9 @@ namespace AzureCoreOne
         {
             services.AddSingleton<CountryService>();
             services.AddSingleton<IBookService, BookService>();
+            // Add application services.
+            services.AddSingleton<IEmailSender, AuthMessageSender>();
+            services.AddSingleton<ISmsSender, AuthMessageSender>();
         }
 
         private void SetupComponents(IServiceCollection services)
@@ -98,6 +105,13 @@ namespace AzureCoreOne
             services.AddEntityFrameworkInMemoryDatabase();
             //services.AddEntityFramework().AddDbContext<ApplicationDbContext>
             //services.AddMemoryCache();
+
+            services.AddEntityFramework();
+            services.AddDbContext<AzureCoreOneDbContext>(option => option.UseSqlServer(connectionString));
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AzureCoreOneDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddDistributedMemoryCache();
             services.AddSession(o =>
             {
@@ -148,6 +162,8 @@ namespace AzureCoreOne
             app.UseStaticFiles();
 
             app.UseSession();
+
+            app.UseIdentity();
 
             app.UseMvc(routes =>
             {
