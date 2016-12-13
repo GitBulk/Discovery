@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 using AzureCoreOne.Configurations;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace AzureCoreOne
 {
@@ -84,9 +85,20 @@ namespace AzureCoreOne
 
         private void SetupComponents(IServiceCollection services)
         {
+            string connectionString = string.Empty;
+            if (this.environment.IsDevelopment())
+            {
+                connectionString = Configuration.GetConnectionString("DefaultConnection");
+            }
+            else
+            {
+                connectionString = Configuration.GetConnectionString("AzureCoreOneConnection");
+            }
 
             services.AddEntityFrameworkInMemoryDatabase();
-            services.AddMemoryCache();
+            //services.AddEntityFramework().AddDbContext<ApplicationDbContext>
+            //services.AddMemoryCache();
+            services.AddDistributedMemoryCache();
             services.AddSession(o =>
             {
                 o.CookieName = ".AzureCoreOne.QuizApp";
