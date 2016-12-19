@@ -14,7 +14,7 @@ namespace AzureCoreOne.Controllers
 {
     public class QuizController : Controller
     {
-        private QuizContext db;
+        private TamContext db;
 
         public JsonSerializerSettings settings = new JsonSerializerSettings
         { PreserveReferencesHandling = PreserveReferencesHandling.All };
@@ -47,9 +47,9 @@ namespace AzureCoreOne.Controllers
 
         public QuizController()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<QuizContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<TamContext>();
             optionsBuilder.UseInMemoryDatabase();
-            db = new QuizContext(optionsBuilder.Options);
+            db = new TamContext(optionsBuilder.Options);
         }
 
         public async Task<IActionResult> Index()
