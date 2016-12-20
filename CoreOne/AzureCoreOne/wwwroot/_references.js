@@ -1,5 +1,4 @@
 ﻿/// <autosync enabled="true" />
-/// <reference path="js/event/event.min.js" />
 /// <reference path="js/site.js" />
 /// <reference path="js/vue/vue_v2.1.3.js" />
 /// <reference path="js/vuetoto/vuetodo.min.js" />

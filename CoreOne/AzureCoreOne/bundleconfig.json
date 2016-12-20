@@ -74,5 +74,23 @@
     "inputFiles": [
       "wwwroot/js/Vuew/SwitchableGrid.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Event/Event.min.js",
+    "inputFiles": [
+      "wwwroot/js/Event/Event.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/Event.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/Event.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/Event.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/Event.js"
+    ]
   }
 ]
