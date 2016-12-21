@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Tam.Core.Filters
+namespace Tam.Core.Filters.RequestFiltering
 {
     public class RequestFilteringContext
     {
         public HttpContext HttpContext { get; set; }
-        public RequestFilteringResult Result { get; set; }
+        public RequestFilterResult Result { get; set; }
     }
 }

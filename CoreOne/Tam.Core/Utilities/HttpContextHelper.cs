@@ -9,7 +9,7 @@ namespace Tam.Core.Utilities
 {
     public static class HttpContextHelper
     {
-        public static IHttpConnectionFeature GetConnectionFeature(this HttpContext context)
+        public static IHttpConnectionFeature GetHttpConnectionFeature(this HttpContext context)
         {
             return context.Features.Get<IHttpConnectionFeature>();
         }

@@ -1,4 +1,4 @@
-﻿namespace Tam.Core.Filters.Files
+﻿namespace Tam.Core.Filters.RequestFiltering.Files
 {
     public class FileExtensionElement
     {

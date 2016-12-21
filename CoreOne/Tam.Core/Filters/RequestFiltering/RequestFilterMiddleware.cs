@@ -3,14 +3,14 @@ using System;
 using System.Threading.Tasks;
 using Tam.Core.Utilities;
 
-namespace Tam.Core.Filters
+namespace Tam.Core.Filters.RequestFiltering
 {
-    public class RequestFilteringMiddleware
+    public class RequestFilterMiddleware
     {
         private readonly RequestDelegate next;
-        private readonly RequestFilteringOptions options;
+        private readonly RequestFilterOptions options;
 
-        public RequestFilteringMiddleware(RequestDelegate next, RequestFilteringOptions options)
+        public RequestFilterMiddleware(RequestDelegate next, RequestFilterOptions options)
         {
             Guard.ThrowIfNull(next);
             Guard.ThrowIfNull(options);
@@ -24,16 +24,16 @@ namespace Tam.Core.Filters
             var requestFilteringContext = new RequestFilteringContext
             {
                 HttpContext = context,
-                Result = RequestFilteringResult.Continue
+                Result = RequestFilterResult.Continue
             };
             foreach (IRequestFilter filter in this.options.Filters)
             {
                 filter.ApplyFilter(requestFilteringContext);
                 switch (requestFilteringContext.Result)
                 {
-                    case RequestFilteringResult.Continue:
+                    case RequestFilterResult.Continue:
                         break;
-                    case RequestFilteringResult.StopFilters:
+                    case RequestFilterResult.StopFilters:
                         return Task.FromResult(0);
                     default:
                         throw new ArgumentOutOfRangeException($"Invalid filter termination {requestFilteringContext.Result}");
