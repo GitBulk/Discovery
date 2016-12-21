@@ -154,6 +154,8 @@ namespace AzureCoreOne
                 // This will handle any situation where a status code is >= 400
                 // and < 600, so long as no response body has already been
                 // generated.
+
+                // Error Action in Home Controller
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
             }
 
