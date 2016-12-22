@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Threading.Tasks;
+using Tam.Core.Filters.RequestFiltering;
 using Tam.Core.Utilities;
 
-namespace Tam.Core.Filters.RequestFiltering
+namespace Tam.Core.Middlewares
 {
     public class RequestFilterMiddleware
     {
         private readonly RequestDelegate next;
-        private readonly RequestFilterOptions options;
+        private readonly RequestFiltMaintenanceWindowerOptions options;
 
-        public RequestFilterMiddleware(RequestDelegate next, RequestFilterOptions options)
+        public RequestFilterMiddleware(RequestDelegate next, RequestFiltMaintenanceWindowerOptions options)
         {
             Guard.ThrowIfNull(next);
             Guard.ThrowIfNull(options);

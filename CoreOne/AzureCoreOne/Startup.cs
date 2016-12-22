@@ -19,6 +19,7 @@ using AzureCoreOne.AppContexts;
 using Microsoft.EntityFrameworkCore;
 using AzureCoreOne.Models.Indentities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Tam.Core.Utilities;
 
 namespace AzureCoreOne
 {
@@ -74,7 +75,21 @@ namespace AzureCoreOne
         private void SetupCustomConfiguration(IServiceCollection services)
         {
             //http://andrewlock.net/how-to-use-the-ioptions-pattern-for-configuration-in-asp-net-core-rc2/
-            services.Configure<SystemSettings>(option => this.Configuration.GetSection("SystemSettings").Bind(option));
+            //services.Configure<SystemSettings>(option => this.Configuration.GetSection("SystemSettings").Bind(option));
+
+            // or
+            //services.ConfigPOCO<SystemSettings>(this.Configuration.GetSection(typeof(SystemSettings).Name));
+
+            // or
+            //var setting = new SystemSettings();
+            //services.ConfigPOCO(this.Configuration.GetSection(typeof(SystemSettings).Name), setting);
+
+            // or
+            services.ConfigPOCO(this.Configuration.GetSection(typeof(SystemSettings).Name), () =>
+                new SystemSettings());
+
+            // or
+
             //services.Configure<SystemSettings>(op =>
             //{
             //    ConfigurationBinder.Bind(Configuration, Configuration.GetSection(nameof(SystemSettings)));

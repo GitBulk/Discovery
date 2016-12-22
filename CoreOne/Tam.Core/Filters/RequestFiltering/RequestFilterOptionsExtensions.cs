@@ -10,7 +10,7 @@ namespace Tam.Core.Filters.RequestFiltering
 {
     public static class RequestFilterOptionsExtensions
     {
-        public static RequestFilterOptions AddRequestFilter(this RequestFilterOptions options, IRequestFilter filter)
+        public static RequestFiltMaintenanceWindowerOptions AddRequestFilter(this RequestFiltMaintenanceWindowerOptions options, IRequestFilter filter)
         {
             Guard.ThrowIfNull(filter);
             options.Filters.Add(filter);
@@ -18,7 +18,7 @@ namespace Tam.Core.Filters.RequestFiltering
         }
 
 
-        public static RequestFilterOptions AddIpFilter(this RequestFilterOptions filterOptions, IPAddressOptions options)
+        public static RequestFiltMaintenanceWindowerOptions AddIpFilter(this RequestFiltMaintenanceWindowerOptions filterOptions, IPAddressOptions options)
         {
             Guard.ThrowIfNull(options);
             var filter = new IPAddresRequestFilter(options);
@@ -26,7 +26,7 @@ namespace Tam.Core.Filters.RequestFiltering
             return filterOptions;
         }
 
-        public static RequestFilterOptions AddFileFilter(this RequestFilterOptions filterOptions, FileExtensionsOptions options)
+        public static RequestFiltMaintenanceWindowerOptions AddFileFilter(this RequestFiltMaintenanceWindowerOptions filterOptions, FileExtensionsOptions options)
         {
             Guard.ThrowIfNull(options);
             var filter = new FileExtensionRequestFilter(options);
