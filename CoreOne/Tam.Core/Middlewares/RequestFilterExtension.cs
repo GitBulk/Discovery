@@ -8,13 +8,8 @@ using Tam.Core.Utilities;
 
 namespace Tam.Core.Middlewares
 {
-    public static class MiddlewareExtension
+    public static class RequestFilterExtension
     {
-        public static IApplicationBuilder UseMaintenanceMiddleware(this IApplicationBuilder app)
-        {
-            return app.UseMiddleware<MaintenanceMiddleware>();
-        }
-
         public static IApplicationBuilder UseRequestFilter(this IApplicationBuilder app, RequestFiltMaintenanceWindowerOptions options)
         {
             Guard.ThrowIfNull(app);

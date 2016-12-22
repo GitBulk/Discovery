@@ -15,9 +15,6 @@ namespace Tam.Core.Middlewares
             this.next = next;
         }
 
-        public virtual Task Invoke(HttpContext context)
-        {
-            return this.next(context);
-        }
+        public abstract Task Invoke(HttpContext context);
     }
 }
