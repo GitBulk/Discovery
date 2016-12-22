@@ -20,6 +20,8 @@ using Microsoft.EntityFrameworkCore;
 using AzureCoreOne.Models.Indentities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Tam.Core.Utilities;
+using Tam.Core.Middlewares;
+using System.Text;
 
 namespace AzureCoreOne
 {
@@ -134,6 +136,8 @@ namespace AzureCoreOne
                 string textTimeout = this.Configuration["SessionIdleTimeout"];
                 o.IdleTimeout = TimeSpan.FromMinutes(Convert.ToInt32(textTimeout));
             });
+            //services.AddMaintenaceMode(new MaintenanceWindow());
+            services.AddMaintenaceMode(() => true, Encoding.UTF8.GetBytes("<div>I am in maintenance mode.</div>"));
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -141,9 +145,9 @@ namespace AzureCoreOne
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
+            SetupCustomConfiguration(services);
             SetupComponents(services);
             SetupExternalViewComponent(services);
-            SetupCustomConfiguration(services);
             SetupMvc(services);
             SetupDI(services);
         }
@@ -153,6 +157,8 @@ namespace AzureCoreOne
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            //app.UseMaintenanceMode();
 
             app.UseApplicationInsightsRequestTelemetry();
 

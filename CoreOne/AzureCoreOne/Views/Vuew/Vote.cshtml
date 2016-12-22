@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Vote Page";
+}
+@section styles{
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/Vuew/Vote.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/css/Vuew/Vote.min.css" asp-append-version="true" />
+    </environment>
+}
+<div id="voteApp">
+    <button class="btn" @@click="upvote">Upvote {{upvotes}}</button>
+</div>
+
+@section scripts{
+    <environment names="Development">
+        <script src="~/js/Vuew/Vote.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/Vuew/Vote.min.js" asp-append-version="true"></script>
+    </environment>
+}

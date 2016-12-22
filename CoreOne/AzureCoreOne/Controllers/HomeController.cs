@@ -17,6 +17,7 @@ namespace AzureCoreOne.Controllers
 
         public IActionResult Index()
         {
+            var request = HttpContext.Request;
             return View();
         }
 

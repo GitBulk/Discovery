@@ -92,5 +92,17 @@
     "inputFiles": [
       "wwwroot/js/Vuew/Event.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/Vote.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/Vote.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/Vote.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/Vote.css"
+    ]
   }
 ]

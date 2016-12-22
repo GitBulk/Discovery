@@ -36,5 +36,15 @@ namespace AzureCoreOne.Controllers
         {
             return View();
         }
+
+        public ViewResult Vote()
+        {
+            return View();
+        }
+
+        public ViewResult Calculator()
+        {
+            return View();
+        }
     }
 }
