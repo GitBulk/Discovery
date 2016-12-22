@@ -9,6 +9,12 @@ namespace AzureCoreOne.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly SystemSettings systemSettings;
+        public HomeController(SystemSettings settings)
+        {
+            this.systemSettings = settings;
+        }
+
         public IActionResult Index()
         {
             return View();

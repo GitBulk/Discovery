@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Tam.Core.Utilities
 {
-    public static class HttpContextHelper
+    public static class HttpContextExtension
     {
         public static IHttpConnectionFeature GetHttpConnectionFeature(this HttpContext context)
         {
