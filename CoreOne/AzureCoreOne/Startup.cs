@@ -66,12 +66,13 @@ namespace AzureCoreOne
 
         private void SetupExternalViewComponent(IServiceCollection services)
         {
-            var assembly = typeof(ViewComponentLibrary.SimpleViewComponent).GetTypeInfo().Assembly;
-            var embeddedFileProvier = new EmbeddedFileProvider(assembly, "ViewComponentLibrary");
-            services.Configure<RazorViewEngineOptions>(o =>
-            {
-                o.FileProviders.Add(embeddedFileProvier);
-            });
+            //var assembly = typeof(ViewComponentLibrary.SimpleViewComponent).GetTypeInfo().Assembly;
+            //var embeddedFileProvier = new EmbeddedFileProvider(assembly, "ViewComponentLibrary");
+            //services.Configure<RazorViewEngineOptions>(o =>
+            //{
+            //    o.FileProviders.Add(embeddedFileProvier);
+            //});
+            services.AddExternalViewComponent<ViewComponentLibrary.SimpleViewComponent>("ViewComponentLibrary");
         }
 
         private void SetupCustomConfiguration(IServiceCollection services)
