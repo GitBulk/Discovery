@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Hello Vue Page";
+}
+
+<div id="helloApp">
+    <span v-bind:title="message">
+        Hover your mouse over me for a few seconds to see my dynamically bound title!
+    </span>
+    <p v-if="seen">Now you see me!!!</p>
+    <ol>
+        <li v-for="player in footballPlayers">{{player.fullName}} - {{player.club}}</li>
+    </ol>
+    <hr />
+    <p>Using component</p>
+    <ol>
+        <child v-for="item in footballPlayers" :player="item"></child>
+    </ol>
+    <hr />
+    <p>{{message}}</p>
+    <input type="text" v-model="message" />
+    <button @@click="reverseMessage">Reverse message</button>
+    <hr />
+
+</div>
+
+@section scripts{
+    <environment names="Development">
+        <script src="~/js/Vuew/Hello.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/Vuew/Hello.min.js" asp-append-version="true"></script>
+    </environment>
+}

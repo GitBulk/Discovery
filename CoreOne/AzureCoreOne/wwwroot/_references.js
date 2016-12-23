@@ -7,6 +7,7 @@
 /// <reference path="js/vuew/calculator.min.js" />
 /// <reference path="js/vuew/computed.js" />
 /// <reference path="js/Vuew/Event.js" />
+/// <reference path="js/vuew/hello.min.js" />
 /// <reference path="js/vuew/inlineeditor.min.js" />
 /// <reference path="js/vuew/instantsearch.min.js" />
 /// <reference path="js/vuew/navigationmenu.min.js" />

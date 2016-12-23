@@ -110,5 +110,11 @@
     "inputFiles": [
       "wwwroot/js/Vuew/Computed.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/Hello.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/Hello.js"
+    ]
   }
 ]

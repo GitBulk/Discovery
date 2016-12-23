@@ -51,5 +51,10 @@ namespace AzureCoreOne.Controllers
         {
             return View();
         }
+
+        public ViewResult Hello()
+        {
+            return View();
+        }
     }
 }
