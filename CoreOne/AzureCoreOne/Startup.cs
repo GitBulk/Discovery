@@ -126,9 +126,11 @@ namespace AzureCoreOne
             services.AddEntityFramework();
             //services.AddDbContext<AzureCoreOneDbContext>(option => option.UseSqlServer(connectionString));
             services.AddSqlServerDbContext<AzureCoreOneDbContext>(connectionString);
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<AzureCoreOneDbContext>()
-                .AddDefaultTokenProviders();
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<AzureCoreOneDbContext>()
+            //    .AddDefaultTokenProviders();
+
+            services.AddIdentity<ApplicationUser, IdentityRole, AzureCoreOneDbContext>();
 
             services.AddDistributedMemoryCache();
             services.AddSession(o =>

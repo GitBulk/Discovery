@@ -3,6 +3,7 @@
 
   "dependencies": {
     "Microsoft.AspNetCore.Http.Abstractions": "1.1.0",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0",
     "Microsoft.AspNetCore.Mvc.Abstractions": "1.1.0",
     "Microsoft.AspNetCore.Mvc.Core": "1.1.0",
     "Microsoft.AspNetCore.Mvc.ViewFeatures": "1.1.0",
