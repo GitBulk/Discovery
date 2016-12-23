@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Computed Page";
+}
+
+<div id="computedApp">
+    <h1>Enter 2 numbers to calculate their sum.</h1>
+    <form class="form-inline">
+        <input type="text" v-model.number="num1" class="form-control" id="num1" value="" />
+        <select v-model="operator" class="form-control">
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+        </select>
+        <input type="text" v-model.number="num2" class="form-control" id="num2" value="" />
+    </form>
+    <h2>Result: {{num1}} {{operator}} {{num2}} = {{result}}</h2>
+<pre>
+    {{$data}}
+</pre>
+</div>
+
+@section scripts{
+    <environment names="Development">
+        <script src="~/js/Vuew/Computed.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/Vuew/Computed.min.js" asp-append-version="true"></script>
+    </environment>
+}

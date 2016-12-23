@@ -104,5 +104,11 @@
     "inputFiles": [
       "wwwroot/css/Vuew/Vote.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/Computed.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/Computed.js"
+    ]
   }
 ]

@@ -5,14 +5,14 @@
 <div id="calculatorApp">
     <h1>Type 2 numbers and choose operation</h1>
     <form class="form-inline">
-        <input type="text" v-model.number="num1" class="form-control" id="num1" value="" />
+        <input type="text" v-model.number="num1" @@keyup.enter="calculate" class="form-control" id="num1" value="" />
         <select v-model="operator" class="form-control">
             <option>+</option>
             <option>-</option>
             <option>*</option>
             <option>/</option>
         </select>
-        <input type="text" v-model.number="num2" class="form-control" id="num2" value="" />
+        <input type="text" v-model.number="num2" @@keyup.enter="calculate" class="form-control" id="num2" value="" />
         <button class="btn btn-primary" type="submit" @@click="calculate">Calculate</button>
     </form>
     <h2>Result: {{num1}} {{operator}} {{num2}} = {{result}}</h2>
