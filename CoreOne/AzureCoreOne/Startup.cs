@@ -72,6 +72,8 @@ namespace AzureCoreOne
             //{
             //    o.FileProviders.Add(embeddedFileProvier);
             //});
+
+            // or
             services.AddExternalViewComponent<ViewComponentLibrary.SimpleViewComponent>("ViewComponentLibrary");
         }
 

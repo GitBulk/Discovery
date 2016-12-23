@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Tam.Core.Utilities;
 
 namespace AzureCoreOne.Controllers
 {
@@ -18,6 +19,7 @@ namespace AzureCoreOne.Controllers
         public IActionResult Index()
         {
             var request = HttpContext.Request;
+            bool isLocal = HttpContext.Request.IsLocal();
             return View();
         }
 
