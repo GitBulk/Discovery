@@ -142,6 +142,7 @@ namespace AzureCoreOne
                 policy.Requirements.Add(new MinimumAgeRequirement(17)));
             });
             services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();
+            services.AddSingleton<IAuthorizationHandler, EditSkiCardAuthorizationHandler>();
 
             services.AddDistributedMemoryCache();
             services.AddSession(o =>
