@@ -13,8 +13,8 @@ namespace AzureCoreOne.Controllers
     [Route("api/[controller]")]
     public class RootController : Controller
     {
-        AzureCoreOneDbContext context;
-        public RootController(AzureCoreOneDbContext context)
+        AzureCoreOneUserContext context;
+        public RootController(AzureCoreOneUserContext context)
         {
             this.context = context;
         }

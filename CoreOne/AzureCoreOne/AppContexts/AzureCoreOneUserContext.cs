@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace AzureCoreOne.AppContexts
 {
-    public class AzureCoreOneDbContext : IdentityDbContext<ApplicationUser>
+    public class AzureCoreOneUserContext : IdentityDbContext<ApplicationUser>
     {
-        public AzureCoreOneDbContext(DbContextOptions<AzureCoreOneDbContext> options) : base(options)
+        public AzureCoreOneUserContext(DbContextOptions options) : base(options)
         { }
 
         protected override void OnModelCreating(ModelBuilder builder)

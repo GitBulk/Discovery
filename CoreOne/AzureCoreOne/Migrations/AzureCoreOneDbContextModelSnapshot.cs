@@ -7,7 +7,7 @@ using AzureCoreOne.AppContexts;
 
 namespace AzureCoreOne.Migrations
 {
-    [DbContext(typeof(AzureCoreOneDbContext))]
+    [DbContext(typeof(AzureCoreOneUserContext))]
     partial class AzureCoreOneDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

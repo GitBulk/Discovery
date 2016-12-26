@@ -10,7 +10,7 @@ namespace Tam.Core.Utilities
 {
     public static class ApplicationBuilderExtension
     {
-        public static IApplicationBuilder Default(this IApplicationBuilder app, IList<CultureInfo> cultures, RequestCulture
+        public static IApplicationBuilder AddCultures(this IApplicationBuilder app, IList<CultureInfo> cultures, RequestCulture
             defaultCulture)
         {
             var supportedCultures = new List<CultureInfo>

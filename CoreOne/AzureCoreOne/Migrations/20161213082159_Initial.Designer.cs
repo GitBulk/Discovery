@@ -7,7 +7,7 @@ using AzureCoreOne.AppContexts;
 
 namespace AzureCoreOne.Migrations
 {
-    [DbContext(typeof(AzureCoreOneDbContext))]
+    [DbContext(typeof(AzureCoreOneUserContext))]
     [Migration("20161213082159_Initial")]
     partial class Initial
     {

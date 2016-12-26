@@ -70,7 +70,7 @@ namespace AzureCoreOne.Configurations
                 City = "Barcelona",
                 Phone = "0168 101 010"
             };
-            context.Customer.AddRange(customerOne, customerTwo);
+            context.Customers.AddRange(customerOne, customerTwo);
         }
 
         private static void ImportProduct(TamContext context)
