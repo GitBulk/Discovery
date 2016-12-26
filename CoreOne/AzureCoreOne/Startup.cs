@@ -22,6 +22,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Tam.Core.Utilities;
 using Tam.Core.Middlewares;
 using System.Text;
+using AzureCoreOne.Policies;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AzureCoreOne
 {
@@ -94,7 +96,6 @@ namespace AzureCoreOne
                 new SystemSettings());
 
             // or
-
             //services.Configure<SystemSettings>(op =>
             //{
             //    ConfigurationBinder.Bind(Configuration, Configuration.GetSection(nameof(SystemSettings)));
@@ -134,6 +135,13 @@ namespace AzureCoreOne
             //    .AddDefaultTokenProviders();
 
             services.AddIdentity<ApplicationUser, IdentityRole, TamContext>();
+
+            services.AddAuthorization(o =>
+            {
+                o.AddPolicy("Over17", policy =>
+                policy.Requirements.Add(new MinimumAgeRequirement(17)));
+            });
+            services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();
 
             services.AddDistributedMemoryCache();
             services.AddSession(o =>

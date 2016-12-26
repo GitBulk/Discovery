@@ -63,7 +63,7 @@ namespace AzureCoreOne.Controllers
         }
 
 
-        public async Task<ViewResult> Create(CreateSkiCardViewModel viewModel)
+        public async Task<ActionResult> Create(CreateSkiCardViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -71,9 +71,58 @@ namespace AzureCoreOne.Controllers
                 var skiCard = new SkiCard
                 {
                     ApplicationUserId = userId,
-                    CreatedDate = DateTime.UtcNow
+                    CreatedDate = DateTimeHelper.GetCurrentSystemDate(),
+                    CardHolderFirstName = viewModel.CardHolderFirstName,
+                    CardHolderBirthDate = viewModel.CardHolderBirthDate,
+                    CardHolderLastName = viewModel.CardHolderLastName,
+                    CardHolderPhoneNumber = viewModel.CardHolderPhoneNumber
                 };
+                this.context.SkiCards.Add(skiCard);
+                await this.context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
+            return View(viewModel);
+        }
+
+        public async Task<ActionResult> Edit(int id)
+        {
+            string userId = this.UserManager.GetUserId(this.User);
+            var skiCard = await this.context.SkiCards.Where(s => s.ApplicationUserId == userId && s.Id == id)
+                .Select(s => new EditSkiCardViewModel
+                {
+                    Id = s.Id,
+                    CardHolderBirthDate = s.CardHolderBirthDate,
+                    CardHolderFirstName = s.CardHolderFirstName,
+                    CardHolderLastName = s.CardHolderLastName
+                }).SingleOrDefaultAsync();
+            if (skiCard == null)
+            {
+                return NotFound();
+            }
+            return View(skiCard);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(EditSkiCardViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                string userId = this.UserManager.GetUserId(this.User);
+                var skiCard = await this.context.SkiCards.SingleOrDefaultAsync(s => s.ApplicationUserId == userId && s.Id == viewModel.Id);
+                if (skiCard == null)
+                {
+                    return NotFound();
+                }
+                skiCard.CardHolderBirthDate = viewModel.CardHolderBirthDate.Value.Date;
+                skiCard.CardHolderFirstName = viewModel.CardHolderFirstName;
+                skiCard.CardHolderLastName = viewModel.CardHolderLastName;
+                skiCard.CardHolderPhoneNumber = viewModel.CardHolderPhoneNumber;
+                await this.context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
         }
     }
 }

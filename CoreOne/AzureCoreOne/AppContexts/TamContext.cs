@@ -2,6 +2,7 @@
 using AzureCoreOne.Models.CustomerManagement;
 using AzureCoreOne.Models.Parsley;
 using AzureCoreOne.Models.Quizs;
+using AzureCoreOne.ViewModels.Parsley;
 using Microsoft.EntityFrameworkCore;
 
 namespace AzureCoreOne.AppContexts
@@ -13,6 +14,11 @@ namespace AzureCoreOne.AppContexts
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<SkiCard> SkiCards { get; set; }
+        public DbSet<PassType> PassTypes { get; set; }
+        public DbSet<Pass> Passes { get; set; }
+        public DbSet<PassActivation> PassActivations { get; set; }
+        public DbSet<Scan> Scans { get; set; }
+
 
         // Best practice is to allow the options to be
         // passed into a constructor so that we remove any
@@ -25,6 +31,7 @@ namespace AzureCoreOne.AppContexts
         modelBuilder)
         {
             modelBuilder.Entity<Quiz>().HasMany<Question>().WithOne(q => q.Quiz);
+            modelBuilder.Entity<PassTypeResort>().HasKey(p => new { p.PassTypeId, p.ResortId });
             base.OnModelCreating(modelBuilder);
         }
     }

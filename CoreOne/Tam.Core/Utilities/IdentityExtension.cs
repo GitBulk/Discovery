@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,13 +15,26 @@ namespace Tam.Core.Utilities
 
             if (useDefaultTokenProvider)
             {
-                services.AddIdentity<TIdentityUser, TIdentityRole>().AddEntityFrameworkStores<TContext>().AddDefaultTokenProviders();
+                services.AddIdentity<TIdentityUser, TIdentityRole>(o => o.Options()).AddEntityFrameworkStores<TContext>().AddDefaultTokenProviders();
             }
             else
             {
-                services.AddIdentity<TIdentityUser, TIdentityRole>().AddEntityFrameworkStores<TContext>();
+                services.AddIdentity<TIdentityUser, TIdentityRole>(o => o.Options()).AddEntityFrameworkStores<TContext>();
             }
             return services;
+        }
+
+        public static IdentityOptions Options(this IdentityOptions options)
+        {
+            options.Lockout.MaxFailedAccessAttempts = 5;
+            return options;
+        }
+
+
+        public static IdentityOptions Options(this IdentityOptions options, int maxFailedAccess)
+        {
+            options.Lockout.MaxFailedAccessAttempts = maxFailedAccess;
+            return options;
         }
     }
 }
