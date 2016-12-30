@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Tam.Core.Controllers;
 using Tam.Core.Utilities;
@@ -31,6 +32,10 @@ namespace AzureCoreOne.Controllers
 
         public async Task<ViewResult> Index()
         {
+            var identity = this.User.Identity as ClaimsIdentity;
+            var roleClaims = identity.Claims.Where(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).Select(x => x.Value).ToList();
+            var nonRoleClaims = identity.Claims.Where(x => x.Type != ClaimsIdentity.DefaultRoleClaimType).Select(x => new { Type = x.Type, Value = x.Value }).ToList();
+
             string userId = this.UserManager.GetUserId(this.User);
             var skicardsViewModels = await context.SkiCards
                                             .Where(a => a.ApplicationUserId == userId).
