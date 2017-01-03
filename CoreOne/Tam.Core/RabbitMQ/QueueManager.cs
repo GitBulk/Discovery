@@ -46,14 +46,14 @@ namespace Tam.Core.RabbitMQ
             return factory;
         }
 
-        public static void ExchangeMessage(ConnectionFactory factory, string exchange, ExchangeType type, string queueName, string message, IBasicProperties properties)
+        public static void ExchangeMessage(ConnectionFactory factory, string exchange, string type, string queueName, string message, IBasicProperties properties)
         {
             using (var connection = factory.CreateConnection())
             {
                 // create channel in the TCP connection
                 using (var channel = connection.CreateModel())
                 {
-                    channel.ExchangeDeclare(exchange: exchange, type: type.ToString().ToLower());
+                    channel.ExchangeDeclare(exchange: exchange, type: type.ToLower());
 
                     // prepare data to publish
                     var body = Encoding.UTF8.GetBytes(message);
@@ -65,7 +65,7 @@ namespace Tam.Core.RabbitMQ
             }
         }
 
-        public static void ExchangeMessage(string hostName, string exchange, ExchangeType type, string queueName, string message, IBasicProperties properties)
+        public static void ExchangeMessage(string hostName, string exchange, string type, string queueName, string message, IBasicProperties properties)
         {
             var factory = CreateConnectionFactory(hostName);
             ExchangeMessage(factory, exchange, type, queueName, message, properties);
@@ -104,9 +104,9 @@ namespace Tam.Core.RabbitMQ
             return sender;
         }
 
-        public static void Fanout(string hostName, string exchange, string message)
+        public static void Fanout(string hostName, string exchangeName, string message)
         {
-            ExchangeMessage(hostName, exchange, ExchangeType.Fanout, queueName: "", message: message, properties: null);
+            ExchangeMessage(hostName, exchangeName, ExchangeType.Fanout, queueName: "", message: message, properties: null);
         }
     }
 }

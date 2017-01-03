@@ -23,6 +23,12 @@ namespace QueueSender
 
         static void Main(string[] args)
         {
+            //WorkQueueEx2(args);
+            FanoutExample.EmitLog.Process(args);
+        }
+
+        private static void WorkQueueEx2(string[] args)
+        {
             string hostName = ConfigurationManager.AppSettings["QueueConnection"];
             var factory = CreateConnectionFactory(hostName);
             using (var connection = factory.CreateConnection())

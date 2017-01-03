@@ -11,6 +11,8 @@ namespace QueueReceiver
 {
     class Program
     {
+        static string hostName = ConfigurationManager.AppSettings["QueueConnection"];
+        const string queueName = "hello";
         private static ConnectionFactory CreateConnectionFactory(string hostName)
         {
             var factory = new ConnectionFactory()
@@ -23,9 +25,12 @@ namespace QueueReceiver
 
         static void Main(string[] args)
         {
-            string hostName = ConfigurationManager.AppSettings["QueueConnection"];
-            string queueName = "hello";
+            //WorkQueueEx2();
+            FanoutExample.Receiver.Process();
+        }
 
+        private static void WorkQueueEx2()
+        {
             Console.WriteLine("I am listening");
             var factory = CreateConnectionFactory(hostName);
             using (var connection = factory.CreateConnection())
@@ -62,7 +67,6 @@ namespace QueueReceiver
                 Console.ReadLine();
             }
         }
-
     }
 
 }
