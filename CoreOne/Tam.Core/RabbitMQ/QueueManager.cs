@@ -67,7 +67,7 @@ namespace Tam.Core.RabbitMQ
 
         public static void ExchangeMessage(string hostName, string exchange, ExchangeType type, string queueName, string message, IBasicProperties properties)
         {
-            var factory = QueueManager.CreateConnectionFactory(hostName);
+            var factory = CreateConnectionFactory(hostName);
             ExchangeMessage(factory, exchange, type, queueName, message, properties);
         }
 
@@ -98,11 +98,11 @@ namespace Tam.Core.RabbitMQ
             }
         }
 
-        //public static QueueSender CreateSender(string hostName)
-        //{
-        //    var sender = new QueueSender(hostName);
-        //    return sender;
-        //}
+        public static QueueSender CreateSender(string hostName)
+        {
+            var sender = new QueueSender(hostName);
+            return sender;
+        }
 
         public static void Fanout(string hostName, string exchange, string message)
         {

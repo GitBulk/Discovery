@@ -1,5 +1,4 @@
 ﻿using RabbitMQ.Client;
-using System.Text;
 
 namespace Tam.Core.RabbitMQ
 {
@@ -13,6 +12,7 @@ namespace Tam.Core.RabbitMQ
         private bool exclusive;
         public string HostName { get; set; }
         private string exchange;
+
         public QueueSender(string hostName)
         {
             this.HostName = hostName;
@@ -58,37 +58,7 @@ namespace Tam.Core.RabbitMQ
             return this;
         }
 
-        //public static void Fanout(string hostName, string exchange, string message)
-        //{
-        //    QueueManager.ExchangeMessage(hostName, exchange, ExchangeType.Fanout, queueName: "", message: message, properties: null);
-        //}
-
-        //public void Send(string queueName = "hello", string message = "I am Sieu Nhan Gao")
-        //{
-        //    using (var connection = this.factory.CreateConnection())
-        //    {
-        //        // create channel in the TCP connection
-        //        using (this.channel = connection.CreateModel())
-        //        {
-        //            // declare a queue with a given name
-        //            channel.QueueDeclare(queue: queueName,
-        //                durable: this.durable,
-        //                exclusive: this.exclusive,
-        //                autoDelete: this.autoDelete,
-        //                arguments: null);
-
-        //            // prepare data to publish
-        //            var body = Encoding.UTF8.GetBytes(message);
-
-        //            // publish
-        //            channel.BasicPublish(exchange: "", routingKey: queueName,
-        //                basicProperties: this.properties, body: body);
-        //        }
-        //    }
-        //}
-
-
-        public void SendMessage(string queueName, string message)
+        public void Process(string queueName, string message)
         {
             QueueManager.SendMessage(this.HostName, new SenderInfo()
             {
