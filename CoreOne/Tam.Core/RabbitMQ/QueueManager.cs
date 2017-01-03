@@ -98,6 +98,37 @@ namespace Tam.Core.RabbitMQ
             }
         }
 
+        public static void ReceiveMessage(string hostName)
+        {
+            var factory = CreateConnectionFactory(hostName);
+            using (var connection = factory.CreateConnection())
+            {
+
+            }
+        }
+
+        public static void ReceiveFanout(string hostName, string exchangeName,
+            EventHandler<BasicDeliverEventArgs> callback, bool noAck = true)
+        {
+            var factory = CreateConnectionFactory(hostName);
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.ExchangeDeclare(exchange: exchangeName,
+                        type: ExchangeType.Fanout);
+
+                    // random a queue name
+                    var queueName = channel.QueueDeclare().QueueName;
+
+                    channel.QueueBind(queue: queueName, exchange: exchangeName, routingKey: "");
+                    var consumer = new EventingBasicConsumer(channel);
+                    consumer.Received += callback;
+                    channel.BasicConsume(queue: queueName, noAck: noAck, consumer: consumer);
+                }
+            }
+        }
+
         public static QueueSender CreateSender(string hostName)
         {
             var sender = new QueueSender(hostName);
