@@ -58,10 +58,10 @@ namespace Tam.Core.RabbitMQ
             return this;
         }
 
-        public static void Fanout(string hostName, string exchange, string message)
-        {
-            QueueManager.ExchangeMessage(hostName, exchange, ExchangeType.Fanout, queueName: "", message: message, properties: null);
-        }
+        //public static void Fanout(string hostName, string exchange, string message)
+        //{
+        //    QueueManager.ExchangeMessage(hostName, exchange, ExchangeType.Fanout, queueName: "", message: message, properties: null);
+        //}
 
         //public void Send(string queueName = "hello", string message = "I am Sieu Nhan Gao")
         //{

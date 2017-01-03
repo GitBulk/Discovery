@@ -98,10 +98,15 @@ namespace Tam.Core.RabbitMQ
             }
         }
 
-        public static QueueSender CreateSender(string hostName)
+        //public static QueueSender CreateSender(string hostName)
+        //{
+        //    var sender = new QueueSender(hostName);
+        //    return sender;
+        //}
+
+        public static void Fanout(string hostName, string exchange, string message)
         {
-            var sender = new QueueSender(hostName);
-            return sender;
+            ExchangeMessage(hostName, exchange, ExchangeType.Fanout, queueName: "", message: message, properties: null);
         }
     }
 }
