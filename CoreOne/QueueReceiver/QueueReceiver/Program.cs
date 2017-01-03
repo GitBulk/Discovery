@@ -4,6 +4,7 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 using Tam.Core.RabbitMQ;
 
 namespace QueueReceiver
@@ -31,10 +32,14 @@ namespace QueueReceiver
             using (var channel = connection.CreateModel())
             {
                 channel.QueueDeclare(queueName,
-                                     durable: false,
+                                     durable: true,
                                      exclusive: false,
                                      autoDelete: false,
                                      arguments: null);
+
+                channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+
+                Console.WriteLine(" [*] Waiting for messages.");
 
                 var consumer = new EventingBasicConsumer(channel);
                 consumer.Received += (model, ea) =>
@@ -42,9 +47,15 @@ namespace QueueReceiver
                     var body = ea.Body;
                     var message = Encoding.UTF8.GetString(body);
                     Console.WriteLine(" [x] Received {0}", message);
+
+                    int dots = message.Split('.').Length - 1;
+                    Thread.Sleep(dots * 1000);
+
+                    Console.WriteLine(" [x] Done");
+                    channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
                 };
                 channel.BasicConsume(queue: "hello",
-                                     noAck: true,
+                                     noAck: false,
                                      consumer: consumer);
 
                 Console.WriteLine(" Press [enter] to exit.");
