@@ -1,6 +1,7 @@
 ﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
+using System.Collections.Generic;
 using Tam.Core.Utilities;
 
 namespace Tam.Core.RabbitMQ
@@ -37,6 +38,13 @@ namespace Tam.Core.RabbitMQ
             //}
             QueueManager.ReceiveExchangeMessage(this.HostName,
                 exchangeName, ExchangeType.Fanout, routingKey: "", callback: callback, noAck: noAck);
+        }
+
+        public void Direct(string exchangeName, List<string> listRoutingKey,
+            EventHandler<BasicDeliverEventArgs> callback, bool noAck = true)
+        {
+            QueueManager.ReceiveExchangeMessage(this.HostName,
+                exchangeName, ExchangeType.Direct, listRoutingKey, callback: callback, noAck: noAck);
         }
 
         public void Direct(string exchangeName, string routingKey,
