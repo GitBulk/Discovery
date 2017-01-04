@@ -19,8 +19,12 @@ namespace Tam.Core.RabbitMQ
 
         public void Fanout(string exchangeName, string message)
         {
-            Guard.ThrowIfNullOrWhiteSpace(message);
-            QueueManager.ExchangeMessage(this.HostName, exchangeName, ExchangeType.Fanout, queueName: "", message: message, properties: null);
+            QueueManager.ExchangeMessage(this.HostName, exchangeName, ExchangeType.Fanout, routingKey: "", message: message, properties: null);
+        }
+
+        public void Direct(string exchangeName, string message, string routingKey)
+        {   
+            QueueManager.ExchangeMessage(this.HostName, exchangeName, ExchangeType.Direct, routingKey, message, properties: null);
         }
 
         public void Send(string queueName, string message, bool durable = false, bool exclusive = false, bool autoDelete = false, string exchange = "",

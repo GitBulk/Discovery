@@ -1,19 +1,14 @@
 ﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using Tam.Core.Utilities;
 
 namespace Tam.Core.RabbitMQ
 {
-    public class QueueManager
-    {
-        private readonly string hostName;
-        public QueueManager(string hostName)
-        {
-            this.hostName = hostName;
-        }
-        
+    public static class QueueManager
+    {        
         public static ConnectionFactory CreateConnectionFactory(string hostName)
         {
             var factory = new ConnectionFactory()
@@ -23,7 +18,7 @@ namespace Tam.Core.RabbitMQ
             return factory;
         }
 
-        public static void ExchangeMessage(ConnectionFactory factory, string exchange, string type, string queueName, string message, IBasicProperties properties)
+        public static void ExchangeMessage(ConnectionFactory factory, string exchange, string type, string routingKey, string message, IBasicProperties properties)
         {
             using (var connection = factory.CreateConnection())
             {
@@ -36,17 +31,82 @@ namespace Tam.Core.RabbitMQ
                     var body = Encoding.UTF8.GetBytes(message);
 
                     // publish
-                    channel.BasicPublish(exchange: exchange, routingKey: queueName,
+                    channel.BasicPublish(exchange: exchange, routingKey: routingKey,
                         basicProperties: properties, body: body);
                 }
             }
         }
 
-        public static void ExchangeMessage(string hostName, string exchange, string type, string queueName, string message, IBasicProperties properties)
+        public static void ExchangeMessage(string hostName, string exchange, string type, string routingKey, string message, IBasicProperties properties)
         {
+            Guard.ThrowIfNullOrWhiteSpace(hostName);
+            Guard.ThrowIfNullOrWhiteSpace(message);
             var factory = CreateConnectionFactory(hostName);
-            ExchangeMessage(factory, exchange, type, queueName, message, properties);
-        }               
+            ExchangeMessage(factory, exchange, type, routingKey, message, properties);
+        }
+
+        public static void ReceiveExchangeMessage(string hostName, string exchangeName, string type, string routingKey, EventHandler<BasicDeliverEventArgs> callback, bool noAck = true)
+        {
+            Guard.ThrowIfNullOrWhiteSpace(hostName);
+            Guard.ThrowIfNullOrWhiteSpace(type);
+            //var factory = CreateConnectionFactory(hostName);
+            //using (var connection = factory.CreateConnection())
+            //{
+            //    using (var channel = connection.CreateModel())
+            //    {
+            //        channel.ExchangeDeclare(exchange: exchangeName,
+            //            type: type);
+            //        var queueName = channel.QueueDeclare().QueueName;
+
+            //        channel.QueueBind(queueName, exchange: exchangeName, routingKey: routingKey);
+
+            //        var consumer = new EventingBasicConsumer(channel);
+            //        consumer.Received += callback;
+            //        channel.BasicConsume(queue: queueName, noAck: noAck,
+            //            consumer: consumer);
+
+            //    }
+            //}
+            var binds = new List<QueueBindInfo>()
+            {
+                new QueueBindInfo
+                {
+                    RoutingKey = routingKey,
+                    ExchangeName = exchangeName
+                }
+            };
+            ReceiveExchangeMessage(hostName, exchangeName, type, binds, callback, noAck);
+        }
+
+        public static void ReceiveExchangeMessage(string hostName, string exchangeName, string type, List<QueueBindInfo> queueBindings, EventHandler<BasicDeliverEventArgs> callback, bool noAck = true)
+        {
+            Guard.ThrowIfNullOrWhiteSpace(hostName);
+            Guard.ThrowIfNullOrWhiteSpace(type);
+            Guard.ThrowIfNullOrEmpty(queueBindings);
+
+            var factory = CreateConnectionFactory(hostName);
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.ExchangeDeclare(exchange: exchangeName,
+                        type: type);
+                    var queueName = channel.QueueDeclare().QueueName;
+
+                    //channel.QueueBind(queueName, exchange: exchangeName, routingKey: routingKey);
+                    foreach (var item in queueBindings)
+                    {
+                        channel.QueueBind(queue: queueName, exchange: item.ExchangeName, routingKey: item.RoutingKey);
+                    }
+
+                    var consumer = new EventingBasicConsumer(channel);
+                    consumer.Received += callback;
+                    channel.BasicConsume(queue: queueName, noAck: noAck,
+                        consumer: consumer);
+
+                }
+            }
+        }
 
         public static Consumer Consumer(string hostName)
         {
@@ -63,6 +123,12 @@ namespace Tam.Core.RabbitMQ
             var sender = new QueueSender(hostName);
             return sender;
         }
+    }
+
+    public class QueueBindInfo
+    {
+        public string ExchangeName { get; set; }
+        public string RoutingKey { get; set; }
     }
 
 }

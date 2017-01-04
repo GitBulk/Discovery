@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Tam.Core.Utilities
 {
@@ -25,6 +26,15 @@ namespace Tam.Core.Utilities
                     errorMessage = "Parameter input is null or white space.";
                 }
                 throw new ArgumentNullException(errorMessage);
+            }
+        }
+
+        public static void ThrowIfNullOrEmpty<TSource>(IEnumerable<TSource> source, Func<TSource, bool> predicate = null)
+        {
+            bool result = source.AnyOrNull();
+            if (!result)
+            {
+                throw new Exception("Source is null or empty");
             }
         }
     }
