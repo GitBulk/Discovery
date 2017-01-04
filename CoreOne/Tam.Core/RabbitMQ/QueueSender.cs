@@ -12,6 +12,7 @@ namespace Tam.Core.RabbitMQ
         private bool exclusive;
         public string HostName { get; set; }
         private string exchange;
+        private bool persistent;
 
         public QueueSender(string hostName)
         {
@@ -34,9 +35,14 @@ namespace Tam.Core.RabbitMQ
 
         public QueueSender Persitent()
         {
-            Durable();
-            this.properties = channel.CreateBasicProperties();
-            this.properties.Persistent = true;
+            this.durable = true;
+            this.persistent = true;
+            return this;
+        }
+
+        public QueueSender Persitent(bool value)
+        {
+            this.durable = this.persistent = value;
             return this;
         }
 
@@ -67,8 +73,9 @@ namespace Tam.Core.RabbitMQ
                 Exchange = this.exchange,
                 Exclusive = this.exclusive,
                 Message = message,
-                Properties = this.properties,
-                QueueName = queueName
+                //Properties = this.properties,
+                QueueName = queueName,
+                Persistent = this.persistent
             });
         }
 

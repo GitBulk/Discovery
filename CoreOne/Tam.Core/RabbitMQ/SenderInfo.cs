@@ -10,7 +10,8 @@ namespace Tam.Core.RabbitMQ
         public bool Exclusive { get; set; }
         public bool AutoDelete { get; set; }
         public string Message { get; set; }
-        public IBasicProperties Properties { get; set; }
+        //public IBasicProperties Properties { get; set; }
         public string Exchange { get; set; } = "";
+        public bool Persistent { get; set; }
     }
 }

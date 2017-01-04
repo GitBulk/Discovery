@@ -28,7 +28,7 @@ namespace Tam.Core.RabbitMQ
         }
 
         public void Send(string queueName, string message, bool durable = false, bool exclusive = false, bool autoDelete = false, string exchange = "",
-            IBasicProperties properties = null)
+            bool persistent = false)
         {
             Guard.ThrowIfNullOrWhiteSpace(message);
 
@@ -39,7 +39,8 @@ namespace Tam.Core.RabbitMQ
                 Exchange = exchange,
                 Exclusive = exclusive,
                 Message = message,
-                Properties = properties,
+                //Properties = properties,
+                Persistent = persistent,
                 QueueName = queueName
             };
             
@@ -62,12 +63,19 @@ namespace Tam.Core.RabbitMQ
                         autoDelete: sender.AutoDelete,
                         arguments: null);
 
+                    IBasicProperties properties = null;
+                    if (sender.Persistent)
+                    {
+                        properties = channel.CreateBasicProperties();
+                        properties.Persistent = true;
+                    }
+
                     // prepare data to publish
                     var body = Encoding.UTF8.GetBytes(sender.Message);
 
                     // publish
                     channel.BasicPublish(exchange: sender.Exchange, routingKey: sender.QueueName,
-                        basicProperties: sender.Properties, body: body);
+                        basicProperties: properties, body: body);
                 }
             }
         }

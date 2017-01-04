@@ -49,32 +49,6 @@ namespace Tam.Core.RabbitMQ
         {
             Guard.ThrowIfNullOrWhiteSpace(hostName);
             Guard.ThrowIfNullOrWhiteSpace(type);
-            //var factory = CreateConnectionFactory(hostName);
-            //using (var connection = factory.CreateConnection())
-            //{
-            //    using (var channel = connection.CreateModel())
-            //    {
-            //        channel.ExchangeDeclare(exchange: exchangeName,
-            //            type: type);
-            //        var queueName = channel.QueueDeclare().QueueName;
-
-            //        channel.QueueBind(queueName, exchange: exchangeName, routingKey: routingKey);
-
-            //        var consumer = new EventingBasicConsumer(channel);
-            //        consumer.Received += callback;
-            //        channel.BasicConsume(queue: queueName, noAck: noAck,
-            //            consumer: consumer);
-
-            //    }
-            //}
-            //var binds = new List<QueueBindInfo>()
-            //{
-            //    new QueueBindInfo
-            //    {
-            //        RoutingKey = routingKey,
-            //        ExchangeName = exchangeName
-            //    }
-            //};
 
             var binds = new List<string>()
             {
@@ -82,37 +56,7 @@ namespace Tam.Core.RabbitMQ
             };
             ReceiveExchangeMessage(hostName, exchangeName, type, binds, callback, noAck);
         }
-
-        //public static void ReceiveExchangeMessage(string hostName, string exchangeName, string type, List<QueueBindInfo> queueBindings, EventHandler<BasicDeliverEventArgs> callback, bool noAck = true)
-        //{
-        //    Guard.ThrowIfNullOrWhiteSpace(hostName);
-        //    Guard.ThrowIfNullOrWhiteSpace(type);
-        //    Guard.ThrowIfNullOrEmpty(queueBindings);
-
-        //    var factory = CreateConnectionFactory(hostName);
-        //    using (var connection = factory.CreateConnection())
-        //    {
-        //        using (var channel = connection.CreateModel())
-        //        {
-        //            channel.ExchangeDeclare(exchange: exchangeName,
-        //                type: type);
-        //            var queueName = channel.QueueDeclare().QueueName;
-
-        //            //channel.QueueBind(queueName, exchange: exchangeName, routingKey: routingKey);
-        //            foreach (var item in queueBindings)
-        //            {
-        //                channel.QueueBind(queue: queueName, exchange: item.ExchangeName, routingKey: item.RoutingKey);
-        //            }
-
-        //            var consumer = new EventingBasicConsumer(channel);
-        //            consumer.Received += callback;
-        //            channel.BasicConsume(queue: queueName, noAck: noAck,
-        //                consumer: consumer);
-
-        //        }
-        //    }
-        //}
-
+        
         public static void ReceiveExchangeMessage(string hostName, string exchangeName, string type, List<string> routingKeys, EventHandler<BasicDeliverEventArgs> callback, bool noAck = true)
         {
             Guard.ThrowIfNullOrWhiteSpace(hostName);
@@ -159,11 +103,4 @@ namespace Tam.Core.RabbitMQ
             return sender;
         }
     }
-
-    public class QueueBindInfo
-    {
-        public string ExchangeName { get; set; }
-        public string RoutingKey { get; set; }
-    }
-
 }
