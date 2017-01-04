@@ -13,15 +13,15 @@ namespace QueueReceiver.Routing
     {
         public static void Process(string[] args)
         {
-            //if (args.Length < 1)
-            //{
-            //    Console.Error.WriteLine("Usage: {0} [info] [warning] [error]",
-            //                            Environment.GetCommandLineArgs()[0]);
-            //    Console.WriteLine(" Press [enter] to exit.");
-            //    Console.ReadLine();
-            //    Environment.ExitCode = 1;
-            //    return;
-            //}
+            if (args.Length < 1)
+            {
+                Console.Error.WriteLine("Usage: {0} [info] [warning] [error]",
+                                        Environment.GetCommandLineArgs()[0]);
+                Console.WriteLine(" Press [enter] to exit.");
+                Console.ReadLine();
+                Environment.ExitCode = 1;
+                return;
+            }
 
             ////var binds = new List<QueueBindInfo>();
 
