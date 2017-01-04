@@ -1,0 +1,120 @@
+[
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/VueToto/VueTodo.min.js",
+    "inputFiles": [
+      "wwwroot/js/VueToto/VueTodo.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/OrderForm.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/OrderForm.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/OrderForm.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/OrderForm.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/VueTodo.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/VueTodo.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/InlineEditor.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/InlineEditor.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/NavigationMenu.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/NavigationMenu.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/InstantSearch.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/InstantSearch.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/InstantSearch.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/InstantSearch.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/SwitchableGrid.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/SwitchableGrid.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/SwitchableGrid.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/SwitchableGrid.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Event/Event.min.js",
+    "inputFiles": [
+      "wwwroot/js/Event/Event.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/Event.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/Event.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/Event.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/Event.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/Vote.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/Vote.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Vuew/Vote.min.css",
+    "inputFiles": [
+      "wwwroot/css/Vuew/Vote.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/Computed.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/Computed.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/Hello.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/Hello.js"
+    ]
+  }
+]

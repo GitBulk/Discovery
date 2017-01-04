@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Inline Editor Page";
+}
+@section styles{
+    <environment names="Development">
+        <link rel="stylesheet" href="~/css/Vuew/InlineEditor.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/css/Vuew/InlineEditor.min.css" asp-append-version="true" />
+    </environment>
+}
+
+<div id="main" v-cloak v-on:click="hideTooltip()">
+    <div class="inllineTooltip" v-on:click.stop v-if="showTooltip">
+        <input type="text" name="input" v-model="textContent" />
+    </div>
+    <p v-on:click.stop="toggleTootip()">tt {{textContent}}</p>
+</div>
+
+@section scripts{
+    <environment names="Development">
+        <script src="~/js/Vuew/InlineEditor.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/Vuew/InlineEditor.min.js" asp-append-version="true"></script>
+    </environment>
+}

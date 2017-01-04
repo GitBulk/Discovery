@@ -1,0 +1,12 @@
+﻿@inject AzureCoreOne.Services.CountryService countryService
+@{
+    ViewData["Title"] = "Books";
+}
+
+
+<h2>Provinces</h2>
+
+@Html.DropDownList("Countries", countryService.Provinces().Select(i => new SelectListItem()
+{
+    Text = i, Value = i
+}))

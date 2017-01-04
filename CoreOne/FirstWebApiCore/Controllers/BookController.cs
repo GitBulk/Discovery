@@ -58,7 +58,6 @@ namespace FirstWebApiCore.Controllers
             var item = this.bookRepo.Find(id);
             if (item == null)
             {
-                return NotFound();
             }
             this.bookRepo.Update(book);
             return new NoContentResult();
