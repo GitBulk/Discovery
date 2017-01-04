@@ -40,7 +40,8 @@ namespace QueueReceiver.FanoutExample
             // or
 
             Console.WriteLine(" [*] waiting for logs");
-            QueueManager.ReceiveFanout(QueueSettings.HostName, "toan_fanout", (sender, ea) =>
+
+            QueueManager.Consumer(QueueSettings.HostName).Fanout("toan_fanout", (sender, ea) =>
             {
                 var body = ea.Body;
                 var message = Encoding.UTF8.GetString(body);

@@ -9,8 +9,7 @@ namespace QueueSender.FanoutExample
         {
             var factory = QueueManager.CreateConnectionFactory(QueueSettings.HostName);
             string message = GetMessage(args);
-            QueueManager.Fanout(QueueSettings.HostName, exchangeName: "toan_fanout",
-                message: message);
+            QueueManager.Publisher(QueueSettings.HostName).Fanout(exchangeName: "toan_fanout", message: message);
             Console.WriteLine(" [x] sent {0}", message);
             Console.WriteLine(" Press enter to exit");
             Console.ReadLine();

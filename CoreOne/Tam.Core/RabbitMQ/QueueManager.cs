@@ -13,30 +13,7 @@ namespace Tam.Core.RabbitMQ
         {
             this.hostName = hostName;
         }
-
-
-        public void Send(string queueName = "hello", string message = "I am Sieu Nhan Gao")
-        {
-            var factory = CreateConnectionFactory(hostName);
-            using (var connection = factory.CreateConnection())
-            {
-                // create channel in the TCP connection
-                using (var channel = connection.CreateModel())
-                {
-                    // declare a queue with a given name
-                    channel.QueueDeclare(queue: queueName,
-                        durable: false, exclusive: false, autoDelete: false, arguments: null);
-
-                    // prepare data to publish
-                    var body = Encoding.UTF8.GetBytes(message);
-
-                    // publish
-                    channel.BasicPublish(exchange: "", routingKey: queueName,
-                        basicProperties: null, body: body);
-                }
-            }
-        }
-
+        
         public static ConnectionFactory CreateConnectionFactory(string hostName)
         {
             var factory = new ConnectionFactory()
@@ -69,64 +46,16 @@ namespace Tam.Core.RabbitMQ
         {
             var factory = CreateConnectionFactory(hostName);
             ExchangeMessage(factory, exchange, type, queueName, message, properties);
+        }               
+
+        public static Consumer Consumer(string hostName)
+        {
+            return new Consumer(hostName);
         }
 
-
-
-        public static void SendMessage(string hostName, SenderInfo sender)
+        public static Publisher Publisher(string hostName)
         {
-            var factory = CreateConnectionFactory(hostName);
-            using (var connection = factory.CreateConnection())
-            {
-                // create channel in the TCP connection
-                using (var channel = connection.CreateModel())
-                {
-                    // declare a queue with a given name
-                    channel.QueueDeclare(queue: sender.QueueName,
-                        durable: sender.Durable,
-                        exclusive: sender.Exclusive,
-                        autoDelete: sender.AutoDelete,
-                        arguments: null);
-
-                    // prepare data to publish
-                    var body = Encoding.UTF8.GetBytes(sender.Message);
-
-                    // publish
-                    channel.BasicPublish(exchange: sender.Exchange, routingKey: sender.QueueName,
-                        basicProperties: sender.Properties, body: body);
-                }
-            }
-        }
-
-        public static void ReceiveMessage(string hostName)
-        {
-            var factory = CreateConnectionFactory(hostName);
-            using (var connection = factory.CreateConnection())
-            {
-
-            }
-        }
-
-        public static void ReceiveFanout(string hostName, string exchangeName,
-            EventHandler<BasicDeliverEventArgs> callback, bool noAck = true)
-        {
-            var factory = CreateConnectionFactory(hostName);
-            using (var connection = factory.CreateConnection())
-            {
-                using (var channel = connection.CreateModel())
-                {
-                    channel.ExchangeDeclare(exchange: exchangeName,
-                        type: ExchangeType.Fanout);
-
-                    // random a queue name
-                    var queueName = channel.QueueDeclare().QueueName;
-
-                    channel.QueueBind(queue: queueName, exchange: exchangeName, routingKey: "");
-                    var consumer = new EventingBasicConsumer(channel);
-                    consumer.Received += callback;
-                    channel.BasicConsume(queue: queueName, noAck: noAck, consumer: consumer);
-                }
-            }
+            return new Publisher(hostName);
         }
 
         public static QueueSender CreateSender(string hostName)
@@ -134,10 +63,6 @@ namespace Tam.Core.RabbitMQ
             var sender = new QueueSender(hostName);
             return sender;
         }
-
-        public static void Fanout(string hostName, string exchangeName, string message)
-        {
-            ExchangeMessage(hostName, exchangeName, ExchangeType.Fanout, queueName: "", message: message, properties: null);
-        }
     }
+
 }

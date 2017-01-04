@@ -60,7 +60,7 @@ namespace Tam.Core.RabbitMQ
 
         public void Process(string queueName, string message)
         {
-            QueueManager.SendMessage(this.HostName, new SenderInfo()
+            QueueManager.Publisher(this.HostName).Send(new SenderInfo()
             {
                 AutoDelete = this.autoDelete,
                 Durable = this.durable,
