@@ -19,7 +19,7 @@ namespace AzureOneCore.Controllers
         // GET: /<controller>/
         public ActionResult Index()
         {
-
+            string contentType = HttpContext.Response.ContentType;
             return View();
         }
     }
