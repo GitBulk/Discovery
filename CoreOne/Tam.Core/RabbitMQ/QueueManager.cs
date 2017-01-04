@@ -117,7 +117,7 @@ namespace Tam.Core.RabbitMQ
         {
             Guard.ThrowIfNullOrWhiteSpace(hostName);
             Guard.ThrowIfNullOrWhiteSpace(type);
-            Guard.ThrowIfNullOrEmpty(routingKeys);
+            //Guard.ThrowIfNullOrEmpty(routingKeys);
 
             var factory = CreateConnectionFactory(hostName);
             using (var connection = factory.CreateConnection())
