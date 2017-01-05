@@ -12,6 +12,7 @@ namespace PartyInvites.Controllers
     {
         public ViewResult Index()
         {
+            string contentType = HttpContext.Response.ContentType;
             int hour = DateTime.Now.Hour;
             ViewBag.Greeting = hour < 12 ? "Good morning" : "Good afternoon";
             return View();
