@@ -85,12 +85,13 @@ namespace Tam.Core.RabbitMQ
 
                 }
             }
+            int i = 0;
         }
 
-        public static Consumer Consumer(string hostName)
-        {
-            return new Consumer(hostName);
-        }
+        //public static Consumer Consumer(string hostName)
+        //{
+        //    return new Consumer(hostName);
+        //}
 
         public static Publisher Publisher(string hostName)
         {
