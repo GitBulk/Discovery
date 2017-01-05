@@ -27,6 +27,11 @@ namespace Tam.Core.RabbitMQ
             QueueManager.ExchangeMessage(this.HostName, exchangeName, ExchangeType.Direct, routingKey, message, properties: null);
         }
 
+        public void Topic(string exchangeName, string message, string routingKey)
+        {
+            QueueManager.ExchangeMessage(this.HostName, exchangeName, ExchangeType.Topic, routingKey, message, null);
+        }
+
         public void Send(string queueName, string message, bool durable = false, bool exclusive = false, bool autoDelete = false, string exchange = "",
             bool persistent = false)
         {

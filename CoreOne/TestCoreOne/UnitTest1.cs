@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net.Sockets;
 using System.IO;
 using System.Text;
+using System.Collections.Generic;
 
 namespace TestCoreOne
 {
@@ -20,6 +21,12 @@ namespace TestCoreOne
             //bool result = validator.Check_MailBox(email);
             //result = validator.Check_SMTP(email);
             //validator.Dispose();
+
+            var emails = new List<string>()
+            {
+                "toan.tran@d2cgroup.com",
+                "toantran@aperia.vn"
+            };
 
             string msg = btnCheck_Click(email);
             Assert.IsTrue(msg == "");

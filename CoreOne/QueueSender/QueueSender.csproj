@@ -61,6 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueueSettings.cs" />
     <Compile Include="Routing\EmitLogDirect.cs" />
+    <Compile Include="Topic\EmitLogsTopic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
