@@ -67,6 +67,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueSender", "CoreOne\Queu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueueReceiver", "CoreOne\QueueReceiver\QueueReceiver\QueueReceiver.csproj", "{05E726DD-4BA5-4043-A7B6-7AA7D9D52DEB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sql", "Sql", "{1B92474C-AE84-404C-BA61-4A407D0530D4}"
+	ProjectSection(SolutionItems) = preProject
+		Sql\SQLQuery1.sql = Sql\SQLQuery1.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
