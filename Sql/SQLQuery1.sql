@@ -14,7 +14,9 @@ CREATE TABLE #Department
 INSERT INTO #Department VALUES(1, 'IT')
 INSERT INTO #Department VALUES(2, 'HR')
 INSERT INTO #Department VALUES(3, 'Marketing')
+INSERT INTO #Department VALUES(4, 'it')
 
+SELECT * FROM #Department WHERE DepNam LIKE '%it%'
 
 INSERT INTO #Employee VALUES(1, 1000, 1)
 INSERT INTO #Employee VALUES(2, 2000, 1)
