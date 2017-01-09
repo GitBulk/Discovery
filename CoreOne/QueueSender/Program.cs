@@ -24,9 +24,9 @@ namespace QueueSender
         static void Main(string[] args)
         {
             //WorkQueueEx2(args);
-            //FanoutExample.EmitLog.Process(args);
+            FanoutExample.EmitLog.Process(args);
             //Routing.EmitLogDirect.Process(args);
-            Topic.EmitLogsTopic.Process(args);
+            //Topic.EmitLogsTopic.Process(args);
         }
 
         private static void WorkQueueEx2(string[] args)

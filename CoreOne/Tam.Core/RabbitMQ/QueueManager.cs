@@ -25,10 +25,12 @@ namespace Tam.Core.RabbitMQ
                 // create channel in the TCP connection
                 using (var channel = connection.CreateModel())
                 {
-                    channel.ExchangeDeclare(exchange: exchange, type: type.ToLower());
+                    channel.ExchangeDeclare(exchange: exchange, type: type.ToLower(), durable: true);
 
                     // prepare data to publish
                     var body = Encoding.UTF8.GetBytes(message);
+
+                    channel.QueueDeclare(queue: routingKey, durable: true, autoDelete: false);
 
                     // publish
                     channel.BasicPublish(exchange: exchange, routingKey: routingKey,

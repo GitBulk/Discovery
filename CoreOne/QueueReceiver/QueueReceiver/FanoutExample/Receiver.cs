@@ -10,17 +10,18 @@ namespace QueueReceiver.FanoutExample
     {
         public static void Process()
         {
+            Console.WriteLine("Fanout receiver");
             var factory = QueueManager.CreateConnectionFactory(QueueSettings.HostName);
             using (var connection = factory.CreateConnection())
             {
                 using (var channel = connection.CreateModel())
                 {
-                    channel.ExchangeDeclare(exchange: "toan_fanout",
-                        type: ExchangeType.Fanout);
-                    var queueName = channel.QueueDeclare().QueueName;
-
+                    channel.ExchangeDeclare(exchange: "toan_fanout_ex",
+                        type: ExchangeType.Fanout, durable: true);
+                    var currentQueue = channel.QueueDeclare(durable: true, exclusive: true, autoDelete: false);
+                    string queueName = currentQueue.QueueName;
                     channel.QueueBind(queue: queueName,
-                        exchange: "toan_fanout", routingKey: "");
+                        exchange: "toan_fanout_ex", routingKey: "");
                     Console.WriteLine(" [*] waiting for logs");
                     var consumer = new EventingBasicConsumer(channel);
                     //consumer.Received += Consumer_Received;

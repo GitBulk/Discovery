@@ -26,9 +26,9 @@ namespace QueueReceiver
         static void Main(string[] args)
         {
             //WorkQueueEx2();
-            //FanoutExample.Receiver.Process();
+            FanoutExample.Receiver.Process();
             //Routing.ReceiveLogsDirect.Process(args);
-            Topic.ReceiveLogsTopic.Process(args);
+            //Topic.ReceiveLogsTopic.Process(args);
         }
 
         private static void WorkQueueEx2()
