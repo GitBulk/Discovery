@@ -47,7 +47,14 @@
   <ItemGroup>
     <Compile Include="ConnectionFactoryCreator.cs" />
     <Compile Include="IConnectionFactory.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\LogEntry.cs" />
+    <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Logging\LoggerExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\ISerializationStrategy.cs" />
+    <Compile Include="Serialization\ISerializer.cs" />
+    <Compile Include="Serialization\JsonSerializationStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
