@@ -65,45 +65,10 @@ namespace Tam.Queue
             }
         }
 
-        public TMessage GetMessage<TMessage>() where TMessage: class
+        public void GetMessage<TMessage>(BinarySerializationStrategy serializer, EventHandler<BasicDeliverEventArgs> callback) where TMessage : class
         {
-            return GetMessage<TMessage>(new BinarySerializationStrategy(), true);
-        }
-
-        private void GetMessage<TMessage>(BinarySerializationStrategy serializer, EventHandler<BasicDeliverEventArgs> callback) where TMessage : class
-        {
-            //TMessage message = default(TMessage);
-            //if (!retry)
-            //{
-            //    Console.WriteLine("Getting message...");
-            //    BasicGetResult result = this.channel.BasicGet(this.queueName, true);
-            //    if (result != null)
-            //    {
-            //        message = new BinarySerializationStrategy().Deserialize<TMessage>(result.Body);
-            //    }
-            //    return message;
-            //}
-
-            //new Action(() =>
-            //{
-            //    try
-            //    {
-            //        var consumer  = EventingBasicConsumer
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Logger.Current.Write(new LogEntry
-            //        {
-            //            Message = ex.ToString(),
-            //            Severity = System.Diagnostics.TraceEventType.Error
-            //        });
-            //    }
-            //});
+            
             var consumer = new EventingBasicConsumer(this.channel);
-            //consumer.Received += (sender, e) =>
-            //{
-            //    message = serializer.Deserialize<TMessage>(e.Body);
-            //};
             consumer.Received += callback;
         }
         
