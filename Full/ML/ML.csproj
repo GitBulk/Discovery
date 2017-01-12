@@ -46,6 +46,7 @@
     <Compile Include="DigitsRecognizer\BasicClassifier.cs" />
     <Compile Include="DigitsRecognizer\DataReader.cs" />
     <Compile Include="DigitsRecognizer\Evaluator.cs" />
+    <Compile Include="DigitsRecognizer\FunctionalDistance.cs" />
     <Compile Include="DigitsRecognizer\IClassifier.cs" />
     <Compile Include="DigitsRecognizer\IDistance.cs" />
     <Compile Include="DigitsRecognizer\ManhattanDistance.cs" />
