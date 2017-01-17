@@ -5,40 +5,49 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Tam.Core.Utilities;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AzureCoreOne.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly Tam.Core.Cache.MemoryCache cache;
         private readonly SystemSettings systemSettings;
-        public HomeController(SystemSettings settings)
+        public HomeController(SystemSettings settings, IMemoryCache cache)
         {
             this.systemSettings = settings;
+            this.cache = new Tam.Core.Cache.MemoryCache(cache);
         }
 
         public IActionResult Index()
         {
             var request = HttpContext.Request;
             bool isLocal = HttpContext.Request.IsLocal();
-            
-            var cookie = request.Cookies["MyCookie"];
-            if (string.IsNullOrWhiteSpace(cookie))
+
+            //var cookie = request.Cookies["MyCookie"];
+            //if (string.IsNullOrWhiteSpace(cookie))
+            //{
+            //    HttpContext.Response.Cookies.Append(key: "MyCookie", value: Uri.EscapeDataString("Hello world"),
+            //        options: new CookieOptions
+            //        {
+            //            Path = "/",
+            //            HttpOnly = false,
+            //            Secure = false
+            //        });
+            //}
+            var person = new Person
             {
-                HttpContext.Response.Cookies.Append(key: "MyCookie", value: Uri.EscapeDataString("Hello world"),
-                    options: new CookieOptions
-                    {
-                        Path = "/",
-                        HttpOnly = false,
-                        Secure = false
-                    });
-            }
+                Age = 30,
+                Name = "Toan"
+            };
+            cache.Set<Person>("toan_cache", person, null);
             return View();
         }
 
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-
+            Person toanPerson = cache.Get<Person>("toan_cache");
             return View();
         }
 
@@ -91,5 +100,11 @@ namespace AzureCoreOne.Controllers
         {
             return View();
         }
+    }
+
+    public class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
     }
 }
