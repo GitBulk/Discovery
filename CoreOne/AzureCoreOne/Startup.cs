@@ -168,8 +168,24 @@ namespace AzureCoreOne
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IApplicationLifetime lifeTime, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            PhysicalFileProvider()
+            lifeTime.ApplicationStarted.Register(() =>
+            {
+                Console.WriteLine("Server started");
+            });
+
+            lifeTime.ApplicationStopping.Register(() =>
+            {
+                Console.WriteLine("Server stopping");
+            });
+
+            lifeTime.ApplicationStopped.Register(() =>
+            {
+                Console.WriteLine("Server stopped");
+            });
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 

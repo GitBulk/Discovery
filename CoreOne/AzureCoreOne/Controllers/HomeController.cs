@@ -20,6 +20,18 @@ namespace AzureCoreOne.Controllers
         {
             var request = HttpContext.Request;
             bool isLocal = HttpContext.Request.IsLocal();
+            
+            var cookie = request.Cookies["MyCookie"];
+            if (string.IsNullOrWhiteSpace(cookie))
+            {
+                HttpContext.Response.Cookies.Append(key: "MyCookie", value: Uri.EscapeDataString("Hello world"),
+                    options: new CookieOptions
+                    {
+                        Path = "/",
+                        HttpOnly = false,
+                        Secure = false
+                    });
+            }
             return View();
         }
 
