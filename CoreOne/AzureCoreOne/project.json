@@ -36,7 +36,10 @@
       "Microsoft.EntityFrameworkCore.Relational.Design": "1.1.0",
     "Microsoft.AspNetCore.Diagnostics": "1.1.0",
     "Tam.Core": "1.0.0-*",
-    "MediatR": "2.1.0"
+    "MediatR": "2.1.0",
+    "RabbitMQ.Client": "4.1.1",
+    "Microsoft.AspNetCore.Mvc.WebApiCompatShim": "1.0.1",
+    "Microsoft.AspNetCore.SpaServices": "1.1.0-rc1-final"
     },
 
   "tools": {

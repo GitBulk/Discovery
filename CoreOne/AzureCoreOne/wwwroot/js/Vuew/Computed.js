@@ -10,16 +10,12 @@
             switch (this.operator) {
                 case "+":
                     return this.num1 + this.num2;
-                    break;
                 case "-":
                     return this.num1 - this.num2;
-                    break;
                 case "*":
                     return this.num1 * this.num2;
-                    break;
                 case "/":
                     return this.num1 / this.num2;
-                    break;
             }
         }
     }

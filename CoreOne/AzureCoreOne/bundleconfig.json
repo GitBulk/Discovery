@@ -116,5 +116,23 @@
     "inputFiles": [
       "wwwroot/js/Vuew/Hello.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/NavigationMenu.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/NavigationMenu.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/Calculator.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/Calculator.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Vuew/InlineEditor.min.js",
+    "inputFiles": [
+      "wwwroot/js/Vuew/InlineEditor.js"
+    ]
   }
 ]

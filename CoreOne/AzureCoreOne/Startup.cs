@@ -125,7 +125,7 @@ namespace AzureCoreOne
 
             services.AddEntityFrameworkInMemoryDatabase();
             //services.AddEntityFramework().AddDbContext<ApplicationDbContext>
-            //services.AddMemoryCache();
+            services.AddMemoryCache();
 
             services.AddEntityFramework();
             //services.AddDbContext<AzureCoreOneDbContext>(option => option.UseSqlServer(connectionString));
@@ -170,7 +170,6 @@ namespace AzureCoreOne
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IApplicationLifetime lifeTime, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            PhysicalFileProvider()
             lifeTime.ApplicationStarted.Register(() =>
             {
                 Console.WriteLine("Server started");
@@ -221,9 +220,12 @@ namespace AzureCoreOne
 
             app.UseMvc(routes =>
             {
+                
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                
             });
 
             app.ImportQuizData(this.environment.WebRootPath);
