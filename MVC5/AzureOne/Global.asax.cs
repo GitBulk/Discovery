@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using WebMarkupMin.AspNet4.Common;
 
 namespace AzureOne
 {
@@ -18,6 +19,7 @@ namespace AzureOne
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            WebMarkupMinConfig.Configure(WebMarkupMinConfiguration.Instance);
             Database.SetInitializer<TeamContext>(new TeamInitializer());
         }
     }
