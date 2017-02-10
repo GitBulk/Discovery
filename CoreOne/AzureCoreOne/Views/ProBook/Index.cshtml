@@ -1,10 +1,25 @@
-﻿@model IEnumerable<string>
+﻿@model IEnumerable<AzureCoreOne.Models.ProBook.Product>
 @{
     ViewData["Title"] = "ProBook Page";
 }
 
-
-@foreach (var item in Model)
-{
-    <p>@item</p>
-}
+<h3 class="text-center">Products</h3>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr><td>Name</td><td>Price</td></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@($"{item.Price:C2}")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" asp-action="AddProduct">
+        Add New Product
+    </a>
+</div>

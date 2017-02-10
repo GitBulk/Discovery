@@ -1,0 +1,26 @@
+﻿@model AzureCoreOne.Models.ProBook.Product
+@{
+    ViewData["Title"] = "One Page";
+}
+
+
+<div data-productid="@Model.ProductID" data-stocklevel="@ViewBag.StockLevel">
+    <p>Product Name: @Model.Name</p>
+    <p>Product Price: @($"{Model.Price:C2}")</p>
+    <p>Stock Level:
+        @switch ((int)ViewBag.StockLevel)
+        {
+            case 0:
+                @:Out of Stock
+                break;
+            case 1:
+            case 2:
+            case 3:
+                <b>Low Stock (@ViewBag.StockLevel)</b>
+                break;
+            default:
+                @: @ViewBag.StockLevel is Stock
+                break;
+        }
+    </p>
+</div>
