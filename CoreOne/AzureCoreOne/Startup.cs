@@ -126,6 +126,14 @@ namespace AzureCoreOne
             services.AddEntityFrameworkInMemoryDatabase();
             //services.AddEntityFramework().AddDbContext<ApplicationDbContext>
             services.AddMemoryCache();
+            services.AddDistributedRedisCache(options =>
+            {
+                //options.InstanceName = "AzureCoreOne";
+                //options.Configuration = "127.0.0.1:6379";
+                options.InstanceName = this.Configuration["RedisInstanceName"];
+                options.Configuration = this.Configuration["RedisConnectionString"];
+            });
+
 
             services.AddEntityFramework();
             //services.AddDbContext<AzureCoreOneDbContext>(option => option.UseSqlServer(connectionString));

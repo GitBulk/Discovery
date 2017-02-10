@@ -6,17 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Tam.Core.Utilities;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace AzureCoreOne.Controllers
 {
     public class HomeController : Controller
     {
         private readonly Tam.Core.Cache.MemoryCache cache;
+        private readonly IDistributedCache distributedCache;
         private readonly SystemSettings systemSettings;
-        public HomeController(SystemSettings settings, IMemoryCache cache)
+        public HomeController(SystemSettings settings, IMemoryCache cache, IDistributedCache distributedCache)
         {
             this.systemSettings = settings;
             this.cache = new Tam.Core.Cache.MemoryCache(cache);
+            this.distributedCache = distributedCache;
         }
 
         public IActionResult Index()
@@ -54,6 +57,14 @@ namespace AzureCoreOne.Controllers
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
+            string cacheKey = "myname";
+            string myName = this.distributedCache.GetString(cacheKey);
+            if (string.IsNullOrEmpty(myName))
+            {
+                myName = "lasthulk";
+                distributedCache.SetString(cacheKey, myName);
+            }
+            ViewBag.MyName = myName;
 
             return View();
         }
