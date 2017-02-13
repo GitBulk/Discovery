@@ -233,12 +233,32 @@ namespace AzureCoreOne
 
             app.UseMvc(routes =>
             {
-                
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Probook}/{action=List}/{id?}");
 
-                
+                //routes.MapRoute(
+                //    name: "default",
+                //    template: "{controller=Probook}/{action=List}/{id?}");
+
+                routes.MapRoute(
+                    name: null,
+                    template: "{category}/Page{page:int}", // Shows the specified page (in this case, page 2) of items from the specified category (Ex: Soccer)
+                    defaults: new { controller = "Probook", action = "List" }
+                );
+                routes.MapRoute(
+                    name: null,
+                    template: "Page{page:int}", // Lists the specified page (Ex: showing items from all categories)
+                    defaults: new { controller = "Probook", action = "List", page = 1 }
+                );
+                routes.MapRoute(
+                    name: null,
+                    template: "{category}", // Shows the first page of items from a specific category (Ex: the Soccer category)
+                    defaults: new { controller = "Probook", action = "List", page = 1 }
+                );
+                routes.MapRoute(
+                    name: null,
+                    template: "", // Lists the first page of products from all categories
+                    defaults: new { controller = "Probook", action = "List", page = 1 });
+
+                routes.MapRoute(name: null, template: "{ controller}/{action}/{id?}");
             });
 
             app.ImportQuizData(this.environment.WebRootPath);

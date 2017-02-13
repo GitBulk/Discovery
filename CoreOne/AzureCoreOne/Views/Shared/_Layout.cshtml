@@ -61,8 +61,16 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    @*<div class="container body-content">
         @RenderBody()
+    </div>*@
+    <div class="row panel">
+        <div id="categories" class="col-xs-3">
+            @await Component.InvokeAsync("NavigationMenu")
+        </div>
+        <div class="col-xs-8">
+            @RenderBody()
+        </div>
     </div>
     <hr />
     <footer class="text-center">
