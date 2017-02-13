@@ -1,6 +1,7 @@
 ﻿using AzureCoreOne.Models;
 using AzureCoreOne.Models.CustomerManagement;
 using AzureCoreOne.Models.Parsley;
+using AzureCoreOne.Models.ProBook;
 using AzureCoreOne.Models.Quizs;
 using AzureCoreOne.ViewModels.Parsley;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,6 @@ namespace AzureCoreOne.AppContexts
         public DbSet<Pass> Passes { get; set; }
         public DbSet<PassActivation> PassActivations { get; set; }
         public DbSet<Scan> Scans { get; set; }
-
 
         // Best practice is to allow the options to be
         // passed into a constructor so that we remove any

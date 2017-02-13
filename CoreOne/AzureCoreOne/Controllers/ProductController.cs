@@ -1,4 +1,5 @@
 ﻿using AzureCoreOne.Models;
+using AzureCoreOne.Models.ProBook;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 

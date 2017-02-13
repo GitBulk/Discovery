@@ -24,6 +24,7 @@ using Tam.Core.Middlewares;
 using System.Text;
 using AzureCoreOne.Policies;
 using Microsoft.AspNetCore.Authorization;
+using AzureCoreOne.Models.ProBook;
 
 namespace AzureCoreOne
 {
@@ -104,11 +105,15 @@ namespace AzureCoreOne
 
         private void SetupDI(IServiceCollection services)
         {
+            //services.AddTransient<IProductRepository, FakeProductRepository>();
             services.AddSingleton<CountryService>();
             services.AddSingleton<IBookService, BookService>();
             // Add application services.
             services.AddSingleton<IEmailSender, AuthMessageSender>();
             services.AddSingleton<ISmsSender, AuthMessageSender>();
+            services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();
+            services.AddSingleton<IAuthorizationHandler, EditSkiCardAuthorizationHandler>();
+            services.AddTransient<IProductRepository, EFProductRepository>();
         }
 
         private void SetupComponents(IServiceCollection services)
@@ -137,6 +142,7 @@ namespace AzureCoreOne
 
             services.AddEntityFramework();
             //services.AddDbContext<AzureCoreOneDbContext>(option => option.UseSqlServer(connectionString));
+            
             services.AddSqlServerDbContext<TamContext>(connectionString);
             //services.AddIdentity<ApplicationUser, IdentityRole>()
             //    .AddEntityFrameworkStores<AzureCoreOneDbContext>()
@@ -149,8 +155,7 @@ namespace AzureCoreOne
                 o.AddPolicy("Over17", policy =>
                 policy.Requirements.Add(new MinimumAgeRequirement(17)));
             });
-            services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();
-            services.AddSingleton<IAuthorizationHandler, EditSkiCardAuthorizationHandler>();
+            
 
             services.AddDistributedMemoryCache();
             services.AddSession(o =>
@@ -231,13 +236,14 @@ namespace AzureCoreOne
                 
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Probook}/{action=List}/{id?}");
 
                 
             });
 
             app.ImportQuizData(this.environment.WebRootPath);
             app.ImportData();
+            SeedData.EnsurePopulated(app);
         }
     }
 }

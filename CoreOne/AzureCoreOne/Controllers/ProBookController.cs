@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AzureCoreOne.Models.ProBook;
+using AzureCoreOne.Models.ProBook.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,12 +12,30 @@ namespace AzureCoreOne.Controllers
 {
     public class ProBookController : Controller
     {
+        private readonly IProductRepository repository;
+        //SimpleRepository repo = SimpleRepository.SharedRepository;
+        public int PageSize = 4;
+        public ProBookController(IProductRepository productRepo)
+        {
+            this.repository = productRepo;
+        }
+
         private bool FilterByPrice(Product p)
         {
             return (p?.Price ?? 0) >= 20;
         }
 
-        SimpleRepository repo = SimpleRepository.SharedRepository;
+        public ViewResult List(int page = 1)
+            => View(new ProductsListViewModel
+            {
+                Products = repository.Products.OrderBy(p => p.ProductId).Skip((page - 1) * PageSize).Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = repository.Products.Count()
+                }
+            });
 
         // GET: /<controller>/
         public IActionResult Index()
@@ -61,7 +80,8 @@ namespace AzureCoreOne.Controllers
             //    $"Price Total: {priceFilterTotal:C2}",
             //    $"Name Total: {nameFilterTotal:C2}" });
 
-            return View(repo.Products.Where(p => p?.Price < 50));
+            //return View(repo.Products.Where(p => p?.Price < 50));
+            return View(repository.Products);
         }
 
         public IActionResult AddProduct()
@@ -72,7 +92,7 @@ namespace AzureCoreOne.Controllers
         [HttpPost]
         public IActionResult AddProduct(Product p)
         {
-            repo.AddProduct(p);
+            //repo.AddProduct(p);
             return RedirectToAction("Index");
         }
 
@@ -87,7 +107,7 @@ namespace AzureCoreOne.Controllers
             ViewBag.StockLevel = 2;
             return View(new Product
             {
-                ProductID = 1,
+                ProductId = 1,
                 Name = "Kayak",
                 Description = "A boat for one person",
                 Category = "Watersports",
