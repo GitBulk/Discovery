@@ -25,6 +25,8 @@ using System.Text;
 using AzureCoreOne.Policies;
 using Microsoft.AspNetCore.Authorization;
 using AzureCoreOne.Models.ProBook;
+using AzureCoreOne.Formatters;
+using Microsoft.Net.Http.Headers;
 
 namespace AzureCoreOne
 {
@@ -63,6 +65,9 @@ namespace AzureCoreOne
                 {
                     o.Filters.Add(new WhitespaceFilterAttribute());
                 }
+                o.InputFormatters.Add(new ProtobufInputFormatter());
+                o.OutputFormatters.Add(new ProtobufOutputFormatter());
+                o.FormatterMappings.SetMediaTypeMappingForFormat(FormatterConstant.Protobuf, MediaTypeHeaderValue.Parse(FormatterConstant.ProtobufHeader));
             });
             return builder;
         }
