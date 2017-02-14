@@ -263,7 +263,7 @@ namespace AzureCoreOne
                     template: "", // Lists the first page of products from all categories
                     defaults: new { controller = "Probook", action = "List", page = 1 });
 
-                routes.MapRoute(name: null, template: "{ controller}/{action}/{id?}");
+                routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
             });
 
             app.ImportQuizData(this.environment.WebRootPath);

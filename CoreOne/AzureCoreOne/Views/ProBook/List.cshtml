@@ -1,14 +1,25 @@
 ﻿@model AzureCoreOne.Models.ProBook.ViewModels.ProductsListViewModel
-@foreach (var p in Model.Products)
+@foreach (var pro in Model.Products)
 {
     <div class="well">
         <h3>
-            <strong>@p.Name</strong>
+            <strong>@pro.Name</strong>
             <span class="pull-right label label-primary">
-                @p.Price.ToString("c")
+                @pro.Price.ToString("c")
             </span>
         </h3>
-        <span class="lead">@p.Description</span>
+        <form id="@pro.ProductId" asp-action="AddToCart" asp-controller="Cart" method="post">
+            <input type="hidden" name="productId"
+                   value="@pro.ProductId" />
+            <input type="hidden" name="returnUrl"
+                   value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <span class="lead">
+                @pro.Description
+                <button type="submit" class="btn btn-success btn-sm pull-right">
+                    Add To Cart
+                </button>
+            </span>
+        </form>
     </div>
 }
 <div page-model="@Model.PagingInfo" page-action="List" page-classes-enabled="true" page-class="btn"

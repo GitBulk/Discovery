@@ -5,15 +5,15 @@ namespace AzureCoreOne.Models.ProBook
     [ProtoContract(SkipConstructor = true)]
     public class Product
     {
-        [ProtoMember(1, DataFormat = DataFormat.FixedSize, IsRequired = true)]
+        [ProtoMember(1)]
         public int ProductId { get; set; }
-        [ProtoMember(2, DataFormat = DataFormat.FixedSize, IsRequired = true)]
+        [ProtoMember(2)]
         public string Name { get; set; }
-        [ProtoMember(3, DataFormat = DataFormat.FixedSize, IsRequired = true)]
+        [ProtoMember(3)]
         public string Description { get; set; }
-        [ProtoMember(4, DataFormat = DataFormat.FixedSize, IsRequired = true)]
+        [ProtoMember(4)]
         public decimal Price { get; set; }
-        [ProtoMember(5, DataFormat = DataFormat.FixedSize, IsRequired = true)]
+        [ProtoMember(5)]
         public string Category { get; set; }
 
 
