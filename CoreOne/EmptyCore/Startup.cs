@@ -143,8 +143,11 @@ namespace EmptyCore
                 {
                     using (var stream = new StreamReader(context.Request.Body))
                     {
-                        var str = await stream.ReadToEndAsync();
-                        Payload res = JsonConvert.DeserializeObject<Payload>(str);
+                        string bodyRequest = await stream.ReadToEndAsync().ConfigureAwait(false);
+                        if (!string.IsNullOrWhiteSpace(bodyRequest))
+                        {
+                            Payload res = JsonConvert.DeserializeObject<Payload>(bodyRequest);
+                        }
                     }
                 }
             }
