@@ -81,8 +81,11 @@ namespace AzureCoreOne.Tests
             {
                 // Parse the response body. Blocking!
                 //var p = response.Content.ReadAsAsync<Product>(new[] { new ProtoBufFormatter() }).Result;
-                
-                var bytes = response.Content.ReadAsByteArrayAsync().Result;
+
+                //var byteArray = await responseMessage.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+
+                // or
+                    var bytes = response.Content.ReadAsByteArrayAsync().Result;
                 var products = ProtoDeserialize<List<Product>>(bytes);
                 //Console.WriteLine("{0}\t{1};\t{2}", p.Name, p.StringValue, p.Id);
             }
