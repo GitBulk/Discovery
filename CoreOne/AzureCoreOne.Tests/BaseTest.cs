@@ -75,6 +75,9 @@ namespace AzureCoreOne.Tests
             var client = new HttpClient { BaseAddress = new Uri("https://localhost:44321/") };
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-protobuf"));
 
+            // https://msdn.microsoft.com/en-us/library/mt674884.aspx
+            // https://forums.xamarin.com/discussion/78204/response-content-readasbytearrayasync-only-reads-png
+
             HttpResponseMessage response = client.GetAsync("api/books").Result;
             
             if (response.IsSuccessStatusCode)
