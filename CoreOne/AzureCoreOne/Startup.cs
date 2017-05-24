@@ -27,13 +27,18 @@ using Microsoft.AspNetCore.Authorization;
 using AzureCoreOne.Models.ProBook;
 using AzureCoreOne.Formatters;
 using Microsoft.Net.Http.Headers;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AzureCoreOne
 {
     public class Startup
     {
-        private ILoggerFactory loggerFactory;
-        private IHostingEnvironment environment;
+        private const string SecretKey = "needtogetthisfromenvironment";
+
+        private readonly ILoggerFactory loggerFactory;
+        private readonly IHostingEnvironment environment;
+        private static SymmetricSecurityKey SigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -53,126 +58,6 @@ namespace AzureCoreOne
 
         public IConfigurationRoot Configuration { get; }
 
-        private IMvcBuilder SetupMvc(IServiceCollection services)
-        {
-            var builder = services.AddMvc();
-            builder.AddMvcCamelCasePropertyNames();
-            var exception = new GlobalExceptionFilter(this.loggerFactory);
-            builder.AddMvcOptions(o =>
-            {
-                o.Filters.Add(exception);
-                if (!this.environment.IsDevelopment())
-                {
-                    o.Filters.Add(new WhitespaceFilterAttribute());
-                }
-                o.InputFormatters.Add(new ProtobufInputFormatter());
-                o.OutputFormatters.Add(new ProtobufOutputFormatter());
-                o.FormatterMappings.SetMediaTypeMappingForFormat(FormatterConstant.Protobuf, MediaTypeHeaderValue.Parse(FormatterConstant.ProtobufHeader));
-            });
-            return builder;
-        }
-
-        private void SetupExternalViewComponent(IServiceCollection services)
-        {
-            //var assembly = typeof(ViewComponentLibrary.SimpleViewComponent).GetTypeInfo().Assembly;
-            //var embeddedFileProvier = new EmbeddedFileProvider(assembly, "ViewComponentLibrary");
-            //services.Configure<RazorViewEngineOptions>(o =>
-            //{
-            //    o.FileProviders.Add(embeddedFileProvier);
-            //});
-
-            // or
-            services.AddExternalViewComponent<ViewComponentLibrary.SimpleViewComponent>("ViewComponentLibrary");
-        }
-
-        private void SetupCustomConfiguration(IServiceCollection services)
-        {
-            //http://andrewlock.net/how-to-use-the-ioptions-pattern-for-configuration-in-asp-net-core-rc2/
-            //services.Configure<SystemSettings>(option => this.Configuration.GetSection("SystemSettings").Bind(option));
-
-            // or
-            //services.ConfigPOCO<SystemSettings>(this.Configuration.GetSection(typeof(SystemSettings).Name));
-
-            // or
-            //var setting = new SystemSettings();
-            //services.ConfigPOCO(this.Configuration.GetSection(typeof(SystemSettings).Name), setting);
-
-            // or
-            services.ConfigPOCO(this.Configuration.GetSection(typeof(SystemSettings).Name), () =>
-                new SystemSettings());
-
-            // or
-            //services.Configure<SystemSettings>(op =>
-            //{
-            //    ConfigurationBinder.Bind(Configuration, Configuration.GetSection(nameof(SystemSettings)));
-            //});
-        }
-
-        private void SetupDI(IServiceCollection services)
-        {
-            //services.AddTransient<IProductRepository, FakeProductRepository>();
-            services.AddSingleton<CountryService>();
-            services.AddSingleton<IBookService, BookService>();
-            // Add application services.
-            services.AddSingleton<IEmailSender, AuthMessageSender>();
-            services.AddSingleton<ISmsSender, AuthMessageSender>();
-            services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();
-            services.AddSingleton<IAuthorizationHandler, EditSkiCardAuthorizationHandler>();
-            services.AddTransient<IProductRepository, EFProductRepository>();
-        }
-
-        private void SetupComponents(IServiceCollection services)
-        {
-            string connectionString = string.Empty;
-            if (this.environment.IsDevelopment())
-            {
-                connectionString = Configuration.GetConnectionString("DefaultConnection");
-            }
-            else
-            {
-                connectionString = Configuration.GetConnectionString("AzureCoreOneConnection");
-            }
-
-            services.AddEntityFrameworkInMemoryDatabase();
-            //services.AddEntityFramework().AddDbContext<ApplicationDbContext>
-            services.AddMemoryCache();
-            services.AddDistributedRedisCache(options =>
-            {
-                //options.InstanceName = "AzureCoreOne";
-                //options.Configuration = "127.0.0.1:6379";
-                options.InstanceName = this.Configuration["RedisInstanceName"];
-                options.Configuration = this.Configuration["RedisConnectionString"];
-            });
-
-
-            services.AddEntityFramework();
-            //services.AddDbContext<AzureCoreOneDbContext>(option => option.UseSqlServer(connectionString));
-            
-            services.AddSqlServerDbContext<TamContext>(connectionString);
-            //services.AddIdentity<ApplicationUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<AzureCoreOneDbContext>()
-            //    .AddDefaultTokenProviders();
-
-            services.AddIdentity<ApplicationUser, IdentityRole, TamContext>();
-
-            services.AddAuthorization(o =>
-            {
-                o.AddPolicy("Over17", policy =>
-                policy.Requirements.Add(new MinimumAgeRequirement(17)));
-            });
-            
-
-            services.AddDistributedMemoryCache();
-            services.AddSession(o =>
-            {
-                o.CookieName = ".AzureCoreOne.QuizApp";
-                string textTimeout = this.Configuration["SessionIdleTimeout"];
-                o.IdleTimeout = TimeSpan.FromMinutes(Convert.ToInt32(textTimeout));
-            });
-            //services.AddMaintenaceMode(new MaintenanceWindow());
-            services.AddMaintenaceMode(() => true, Encoding.UTF8.GetBytes("<div>I am in maintenance mode.</div>"));
-        }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -182,6 +67,8 @@ namespace AzureCoreOne
             SetupComponents(services);
             SetupExternalViewComponent(services);
             SetupMvc(services);
+            SetupJwt(services);
+            SetupPolicies(services);
             SetupDI(services);
         }
 
@@ -269,6 +156,153 @@ namespace AzureCoreOne
             app.ImportQuizData(this.environment.WebRootPath);
             app.ImportData();
             SeedData.EnsurePopulated(app);
+        }
+
+        private IMvcBuilder SetupMvc(IServiceCollection services)
+        {
+            var builder = services.AddMvc();
+            builder.AddMvcCamelCasePropertyNames();
+            var exception = new GlobalExceptionFilter(this.loggerFactory);
+            builder.AddMvcOptions(o =>
+            {
+                o.Filters.Add(exception);
+                if (!this.environment.IsDevelopment())
+                {
+                    o.Filters.Add(new WhitespaceFilterAttribute());
+                }
+                o.InputFormatters.Add(new ProtobufInputFormatter());
+                o.OutputFormatters.Add(new ProtobufOutputFormatter());
+                o.FormatterMappings.SetMediaTypeMappingForFormat(FormatterConstant.Protobuf, MediaTypeHeaderValue.Parse(FormatterConstant.ProtobufHeader));
+            });
+            return builder;
+        }
+
+        private void SetupExternalViewComponent(IServiceCollection services)
+        {
+            //var assembly = typeof(ViewComponentLibrary.SimpleViewComponent).GetTypeInfo().Assembly;
+            //var embeddedFileProvier = new EmbeddedFileProvider(assembly, "ViewComponentLibrary");
+            //services.Configure<RazorViewEngineOptions>(o =>
+            //{
+            //    o.FileProviders.Add(embeddedFileProvier);
+            //});
+
+            // or
+            services.AddExternalViewComponent<ViewComponentLibrary.SimpleViewComponent>("ViewComponentLibrary");
+        }
+
+        private void SetupCustomConfiguration(IServiceCollection services)
+        {
+            //http://andrewlock.net/how-to-use-the-ioptions-pattern-for-configuration-in-asp-net-core-rc2/
+            //services.Configure<SystemSettings>(option => this.Configuration.GetSection("SystemSettings").Bind(option));
+
+            // or
+            //services.ConfigPOCO<SystemSettings>(this.Configuration.GetSection(typeof(SystemSettings).Name));
+
+            // or
+            //var setting = new SystemSettings();
+            //services.ConfigPOCO(this.Configuration.GetSection(typeof(SystemSettings).Name), setting);
+
+            // or
+            services.ConfigPOCO(this.Configuration.GetSection(typeof(SystemSettings).Name), () =>
+                new SystemSettings());
+
+            // or
+            //services.Configure<SystemSettings>(op =>
+            //{
+            //    ConfigurationBinder.Bind(Configuration, Configuration.GetSection(nameof(SystemSettings)));
+            //});
+        }
+
+        private void SetupDI(IServiceCollection services)
+        {
+            //services.AddTransient<IProductRepository, FakeProductRepository>();
+            services.AddSingleton<CountryService>();
+            services.AddSingleton<IBookService, BookService>();
+            // Add application services.
+            services.AddSingleton<IEmailSender, AuthMessageSender>();
+            services.AddSingleton<ISmsSender, AuthMessageSender>();
+            services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();
+            services.AddSingleton<IAuthorizationHandler, EditSkiCardAuthorizationHandler>();
+            services.AddTransient<IProductRepository, EFProductRepository>();
+        }
+
+        private void SetupComponents(IServiceCollection services)
+        {
+            string connectionString = string.Empty;
+
+            if (this.environment.IsDevelopment())
+            {
+                connectionString = Configuration.GetConnectionString("DefaultConnection");
+            }
+            else
+            {
+                connectionString = Configuration.GetConnectionString("AzureCoreOneConnection");
+            }
+
+            services.AddEntityFrameworkInMemoryDatabase();
+            //services.AddEntityFramework().AddDbContext<ApplicationDbContext>
+            services.AddMemoryCache();
+            services.AddDistributedRedisCache(options =>
+            {
+                //options.InstanceName = "AzureCoreOne";
+                //options.Configuration = "127.0.0.1:6379";
+                options.InstanceName = this.Configuration["RedisInstanceName"];
+                options.Configuration = this.Configuration["RedisConnectionString"];
+            });
+
+            services.AddEntityFramework();
+            //services.AddDbContext<AzureCoreOneDbContext>(option => option.UseSqlServer(connectionString));
+
+            services.AddSqlServerDbContext<TamContext>(connectionString);
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<AzureCoreOneDbContext>()
+            //    .AddDefaultTokenProviders();
+
+            services.AddIdentity<ApplicationUser, IdentityRole, TamContext>();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(o =>
+            {
+                o.CookieName = ".AzureCoreOne.QuizApp";
+                string textTimeout = this.Configuration["SessionIdleTimeout"];
+                o.IdleTimeout = TimeSpan.FromMinutes(Convert.ToInt32(textTimeout));
+            });
+            //services.AddMaintenaceMode(new MaintenanceWindow());
+            services.AddMaintenaceMode(() => true, Encoding.UTF8.GetBytes("<div>I am in maintenance mode.</div>"));
+        }
+
+        private void SetupJwt(IServiceCollection services)
+        {
+            var jwtOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+
+            services.Configure<JwtIssuerOptions>(options =>
+            {
+                options.Issuer = jwtOptions[nameof(JwtIssuerOptions.Issuer)];
+                options.Audience = jwtOptions[nameof(JwtIssuerOptions.Audience)];
+                options.SigningCredentials = new SigningCredentials(SigningKey, SecurityAlgorithms.HmacSha256);
+            });
+        }
+
+        private void SetupPolicies(IServiceCollection services)
+        {
+
+            var authorizedWholeSite = new AuthorizationPolicyBuilder()
+                                    .RequireAuthenticatedUser()
+                                    .Build();
+
+            services.AddAuthorization(o =>
+            {
+                o.AddPolicy("AuthorizedWholeSite", authorizedWholeSite);
+
+                o.AddPolicy("Over17", policy =>
+                {
+                    policy.Requirements.Add(new MinimumAgeRequirement(17));
+                });
+
+
+                // others
+
+            });
         }
     }
 }
